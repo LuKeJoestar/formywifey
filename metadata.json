@@ -1,0 +1,6 @@
+{
+  "name": "Para Carolina",
+  "description": "Una página web romántica y interactiva diseñada con amor para Carolina, con flores hermosas, corazones flotantes y una carta de amor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

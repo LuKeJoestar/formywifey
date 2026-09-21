@@ -44,14 +44,32 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF0F3] flex flex-col items-center py-10 px-4 relative overflow-hidden selection:bg-pink-200 select-none">
+    <div className="min-h-screen bg-[#FFF9DB] flex flex-col items-center py-10 px-4 relative overflow-hidden selection:bg-amber-200 select-none">
       
+      {/* Yellow September atmosphere */}
+      <div className="fixed inset-0 pointer-events-none z-[5] overflow-hidden" aria-hidden="true">
+        {Array.from({ length: 22 }).map((_, i) => (
+          <motion.span
+            key={i}
+            className="absolute block w-2 h-2 rounded-full bg-yellow-300/70 shadow-[0_0_14px_rgba(234,179,8,0.45)]"
+            style={{ left: `${(i * 47) % 101}%`, top: `${(i * 29) % 100}%` }}
+            animate={{
+              y: [0, -18, 0],
+              x: [0, i % 2 === 0 ? 8 : -8, 0],
+              opacity: [0.2, 0.85, 0.2],
+              scale: [0.7, 1.15, 0.7],
+            }}
+            transition={{ duration: 3.5 + (i % 5) * 0.45, repeat: Infinity, delay: i * 0.12, ease: "easeInOut" }}
+          />
+        ))}
+      </div>
+
       {/* Background Hearts System */}
       <FloatingHearts />
 
       {/* Background ambient lighting blobs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#FFB3C1]/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-1/4 left-10 w-60 h-60 bg-[#FF85A1]/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#F8D66D]/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-1/4 left-10 w-60 h-60 bg-[#E9B949]/10 rounded-full blur-3xl pointer-events-none"></div>
 
       {/* Header Container */}
       <motion.header
@@ -60,15 +78,15 @@ export default function App() {
         transition={{ duration: 0.8 }}
         className="w-full max-w-2xl text-center mb-8 relative z-20"
       >
-        <span className="text-pink-500 uppercase tracking-[0.3em] text-xs font-bold font-sans flex items-center justify-center gap-1.5">
-          <Heart className="w-4 h-4 fill-pink-500 animate-pulse text-pink-500" /> Creado Especialmente Para Ti
+        <span className="text-amber-500 uppercase tracking-[0.3em] text-xs font-bold font-sans flex items-center justify-center gap-1.5">
+          <Heart className="w-4 h-4 fill-amber-500 animate-pulse text-amber-500" /> Creado Especialmente Para Ti
         </span>
         
-        <h1 className="font-display italic text-[#C9184A] text-5xl md:text-6xl font-normal mt-2 tracking-wide">
+        <h1 className="font-display italic text-[#8A5A00] text-5xl md:text-6xl font-normal mt-2 tracking-wide">
           Para Mi Querida Carolina
         </h1>
         
-        <p className="font-serif italic text-[#590D22]/80 text-sm md:text-base mt-2 max-w-md mx-auto leading-relaxed">
+        <p className="font-serif italic text-[#4A3600]/80 text-sm md:text-base mt-2 max-w-md mx-auto leading-relaxed">
           Un rinconcito de amor interactivo, diseñado para recordarte lo valiosa que eres y lo mucho que te amo.
         </p>
       </motion.header>
@@ -81,13 +99,13 @@ export default function App() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
-          className="w-full bg-white border border-pink-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] flex flex-col items-center text-center relative overflow-hidden"
+          className="w-full bg-white border border-amber-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] flex flex-col items-center text-center relative overflow-hidden"
         >
-          <div className="absolute top-2 right-2 text-pink-200">
+          <div className="absolute top-2 right-2 text-amber-200">
             <Sparkles className="w-8 h-8" />
           </div>
 
-          <p className="text-xs text-pink-500 uppercase tracking-widest font-sans font-bold mb-3">Pensamiento de Amor</p>
+          <p className="text-xs text-amber-500 uppercase tracking-widest font-sans font-bold mb-3">Pensamiento de Amor</p>
           
           <div className="min-h-[50px] flex items-center justify-center px-4">
             <AnimatePresence mode="wait">
@@ -97,7 +115,7 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.35 }}
-                className="font-script text-[#590D22] text-2xl md:text-3xl leading-relaxed"
+                className="font-script text-[#4A3600] text-2xl md:text-3xl leading-relaxed"
               >
                 "{currentPhrase}"
               </motion.p>
@@ -106,7 +124,7 @@ export default function App() {
 
           <button
             onClick={getNewPhrase}
-            className="mt-4 px-4 py-1.5 bg-[#FFE5EC] hover:bg-[#FFD1DC] text-[#C9184A] rounded-full text-xs font-serif font-semibold border border-pink-200 shadow-sm transition-all active:scale-95 cursor-pointer"
+            className="mt-4 px-4 py-1.5 bg-[#FFF0A8] hover:bg-[#FFE477] text-[#8A5A00] rounded-full text-xs font-serif font-semibold border border-amber-200 shadow-sm transition-all active:scale-95 cursor-pointer"
           >
             ❀ Recibir Otro Mensaje
           </button>
@@ -149,12 +167,12 @@ export default function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="w-full max-w-2xl text-center mt-12 pb-6 border-t border-pink-100 pt-6 relative z-10"
+        className="w-full max-w-2xl text-center mt-12 pb-6 border-t border-amber-100 pt-6 relative z-10"
       >
-        <p className="text-xs text-pink-400 font-serif italic flex items-center justify-center gap-1">
-          Hecho con todo el amor de mi corazón para mi hermosa Carolina <Heart className="w-3 h-3 text-rose-500 fill-rose-400" />
+        <p className="text-xs text-amber-400 font-serif italic flex items-center justify-center gap-1">
+          Hecho con todo el amor de mi corazón para mi hermosa Carolina <Heart className="w-3 h-3 text-yellow-500 fill-yellow-400" />
         </p>
-        <p className="text-[10px] text-pink-300 font-sans tracking-widest uppercase mt-1">
+        <p className="text-[10px] text-amber-300 font-sans tracking-widest uppercase mt-1">
           Por siempre tuyo • 2026
         </p>
       </motion.footer>

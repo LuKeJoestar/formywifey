@@ -62,31 +62,6 @@
         animation: flower-sway var(--sway-duration, 5s) ease-in-out infinite alternate;
         animation-delay: var(--sway-delay, 0s);
       }
-      .bouquet-stage { isolation: isolate; }
-      .bouquet-glow {
-        position:absolute; width:230px; height:230px; border-radius:50%;
-        background:radial-gradient(circle, rgba(250,204,21,.28) 0%, rgba(250,204,21,.08) 42%, transparent 72%);
-        top:20px; left:50%; transform:translateX(-50%);
-        animation:bloomGlow 4s ease-in-out infinite;
-      }
-      .bouquet-sparkle {
-        position:absolute; z-index:12; color:#d4a017; font-size:18px;
-        animation: sparkleFloat 3s ease-in-out infinite;
-      }
-      .sparkle-one { top:72px; left:18%; animation-delay:-.8s; }
-      .sparkle-two { top:130px; right:18%; animation-delay:-1.7s; }
-      .sparkle-three { top:45px; right:31%; animation-delay:-2.4s; }
-      .elegant-vase { animation:vaseBreath 4s ease-in-out infinite; }
-      .vase-shadow { animation:shadowBreath 4s ease-in-out infinite; }
-      @keyframes bloomGlow { 0%,100%{transform:translateX(-50%) scale(.92);opacity:.65} 50%{transform:translateX(-50%) scale(1.08);opacity:1} }
-      @keyframes sparkleFloat { 0%,100%{transform:translateY(5px) scale(.7);opacity:.25} 50%{transform:translateY(-10px) scale(1.25);opacity:.9} }
-      @keyframes vaseBreath { 0%,100%{transform:translateY(2px) rotate(-.5deg)} 50%{transform:translateY(-2px) rotate(.5deg)} }
-      @keyframes shadowBreath { 0%,100%{transform:scaleX(.9);opacity:.35} 50%{transform:scaleX(1);opacity:.55} }
-      .flower-bloom-in { animation: flowerBloomIn .75s cubic-bezier(.2,.85,.3,1) both; }
-.flower-item.flower-settled { animation: flowerSway var(--sway-duration,5s) ease-in-out infinite alternate; animation-delay: var(--sway-delay,0s); }
-      @keyframes flowerBloomIn { 0%{opacity:0;transform:translate(-50%,35px) scale(.05) rotate(0deg)} 65%{opacity:1;transform:translate(-50%,-5px) scale(1.08) rotate(var(--rotation))} 100%{opacity:1;transform:translate(-50%,0) scale(var(--scale)) rotate(var(--rotation))} }
-@keyframes flowerSway { 0%,100%{transform:translate(-50%,0) scale(var(--scale)) rotate(calc(var(--rotation) - 2deg));} 50%{transform:translate(-50%,0) scale(var(--scale)) rotate(calc(var(--rotation) + 2deg));} }
-
     </style>
   </head>
   <body class="min-h-screen bg-[#FFF9DB] flex flex-col items-center py-10 px-4 relative overflow-x-hidden select-none selection:bg-amber-200">
@@ -94,16 +69,6 @@
 
     <!-- Yellow September effects -->
     <div id="yellow-september-effects" class="fixed inset-0 pointer-events-none z-[40] overflow-hidden" aria-hidden="true"></div>
-
-
-    <!-- SoundCloud: Zelda's Lullaby -->
-    <iframe
-      id="soundcloud-player"
-      title="Zelda's Lullaby"
-      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/chubby-bubby-204183146/06-zeldas-lullaby-mp3&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false"
-      style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px;bottom:-9999px;"
-      allow="autoplay"
-    ></iframe>
 
     <!-- Floating Hearts Container -->
     <div id="floating-hearts-container" class="fixed inset-0 pointer-events-none z-50 overflow-hidden"></div>
@@ -430,7 +395,7 @@
             </div>
 
             <!-- Injected Flowers -->
-            <div id="flowers-container" class="absolute inset-0 z-30 pointer-events-none"></div>
+            <div id="flowers-container" class="absolute inset-0 z-10 pointer-events-none"></div>
 
             <!-- Vase Base -->
             <div class="relative w-28 h-28 z-20 flex flex-col items-center justify-end">
@@ -946,10 +911,10 @@
         const container = document.getElementById('flowers-container');
         const div = document.createElement('div');
         div.id = id;
-        div.className = 'flower-item origin-bottom absolute z-[25] pointer-events-none';
+        div.className = 'flower-item origin-bottom absolute transition-all duration-500 ease-out';
         div.style.left = `${xOffset}%`;
-        div.style.bottom = '68px';
-        div.style.width = '78px';
+        div.style.bottom = '78px';
+        div.style.width = '68px';
         div.style.height = `${height}px`;
         div.style.transformOrigin = 'bottom center';
         div.style.setProperty('--scale', scale);
@@ -959,18 +924,13 @@
 
         div.innerHTML = conf.svg(conf.color, id);
         div.style.opacity = '0';
-        div.style.transform = `translate(-50%, 50px) scale(0)`;
+        div.style.transform = `translateY(50px) scale(0)`;
         
         container.appendChild(div);
         
         setTimeout(() => {
           div.style.opacity = '1';
-          div.style.transform = `translate(-50%, 0) scale(${scale}) rotate(${rotation}deg)`;
-          div.classList.add('flower-bloom-in');
-          setTimeout(() => {
-            div.classList.remove('flower-bloom-in');
-            div.classList.add('flower-settled');
-          }, 800);
+          div.style.transform = `translateY(0) scale(${scale}) rotate(${rotation}deg)`;
         }, 15);
 
         flowers.push({ id, elem: div });
@@ -979,7 +939,7 @@
           const old = flowers.shift();
           if (old) {
             old.elem.style.opacity = '0';
-            old.elem.style.transform = `translate(-50%, 40px) scale(0)`;
+            old.elem.style.transform = `translateY(40px) scale(0)`;
             setTimeout(() => old.elem.remove(), 500);
           }
         }
@@ -993,7 +953,7 @@
         playFlowerPop();
         flowers.forEach(f => {
           f.elem.style.opacity = '0';
-          f.elem.style.transform = `translate(-50%, 40px) scale(0)`;
+          f.elem.style.transform = `translateY(40px) scale(0)`;
           setTimeout(() => f.elem.remove(), 500);
         });
         flowers = [];
@@ -1114,54 +1074,142 @@
       }
       requestAnimationFrame(updateHeartsPhysics);
 
-      // SoundCloud music player
-      let soundCloudWidget = null;
-      let musicPlaying = false;
+      // Web Audio Synth Engine
+      let audioCtx = null;
+      let musicIntervalId = null;
+      let currentOscillators = [];
 
-      function initSoundCloudPlayer() {
-        const iframe = document.getElementById('soundcloud-player');
-        if (!iframe || !window.SC) return;
-        soundCloudWidget = SC.Widget(iframe);
+      function getAudioContext() {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playRomanticChime() {
+        try {
+          const ctx = getAudioContext();
+          const now = ctx.currentTime;
+          const freqs = [349.23, 440.00, 523.25, 659.25, 783.99]; // F Major 7 / C chord spread
+          freqs.forEach((f, idx) => {
+            const delay = idx * 0.12;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + delay);
+            gain.gain.setValueAtTime(0, now + delay);
+            gain.gain.linearRampToValueAtTime(0.12, now + delay + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 1.2);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + delay);
+            osc.stop(now + delay + 1.3);
+          });
+        } catch (e) { console.warn("Audio Context blocked", e); }
+      }
+
+      function playFlowerPop() {
+        try {
+          const ctx = getAudioContext();
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(680, now + 0.08);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.16);
+        } catch (e) { console.warn("Audio Pop error", e); }
+      }
+
+      function playAmbientNote(freq, dur, vol = 0.04) {
+        try {
+          const ctx = getAudioContext();
+          const now = ctx.currentTime;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(vol, now + 0.4);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + dur + 0.5);
+
+          const record = { osc, gain };
+          currentOscillators.push(record);
+          setTimeout(() => {
+            currentOscillators = currentOscillators.filter(o => o !== record);
+          }, (dur + 1) * 1000);
+        } catch (e) {}
       }
 
       function startBackgroundMusic() {
-        if (!soundCloudWidget) {
-          initSoundCloudPlayer();
-        }
-        if (soundCloudWidget) {
-          soundCloudWidget.play();
-        }
+        try {
+          const ctx = getAudioContext();
+          if (musicIntervalId) return;
+          const lullaby = [
+            [392.00, 0.65], [523.25, 0.65], [587.33, 0.65], [659.25, 1.10],
+            [587.33, 0.65], [523.25, 0.65], [392.00, 1.20],
+            [329.63, 0.65], [392.00, 0.65], [440.00, 0.65], [523.25, 1.10],
+            [440.00, 0.65], [392.00, 0.65], [329.63, 1.20]
+          ];
+          let step = 0;
+          const playMeasure = () => {
+            const [note, dur] = lullaby[step % lullaby.length];
+            playAmbientNote(note, dur + 0.8, 0.045);
+            if (step % 2 === 0) playAmbientNote(note / 2, dur + 1.2, 0.018);
+            step++;
+          };
+          playMeasure();
+          musicIntervalId = setInterval(playMeasure, 950);
+        } catch (e) { console.warn("Bg Music error", e); }
       }
 
       function stopBackgroundMusic() {
-        if (soundCloudWidget) {
-          soundCloudWidget.pause();
+        if (musicIntervalId) {
+          clearInterval(musicIntervalId);
+          musicIntervalId = null;
         }
+        currentOscillators.forEach(({ osc, gain }) => {
+          try {
+            osc.stop();
+            osc.disconnect();
+            gain.disconnect();
+          } catch (e) {}
+        });
+        currentOscillators = [];
       }
 
+      let musicPlaying = false;
       function toggleMusic() {
         musicPlaying = !musicPlaying;
         const toggleBtn = document.getElementById('music-toggle');
         const textSpan = document.getElementById('music-text');
         const icon = document.getElementById('music-icon');
-
+        
         if (musicPlaying) {
           startBackgroundMusic();
-          textSpan.textContent = "Zelda's Lullaby ✨🔊";
+          textSpan.textContent = "Zelda Lullaby ✨🔊";
           toggleBtn.classList.add('bg-amber-100', 'border-amber-300');
           icon.classList.add('animate-pulse');
         } else {
           stopBackgroundMusic();
-          textSpan.textContent = "Zelda's Lullaby 🔇";
+          textSpan.textContent = "Zelda Lullaby 🔇";
           toggleBtn.classList.remove('bg-amber-100', 'border-amber-300');
           icon.classList.remove('animate-pulse');
         }
+        playFlowerPop();
       }
-
-      const soundCloudApi = document.createElement('script');
-      soundCloudApi.src = 'https://w.soundcloud.com/player/api.js';
-      soundCloudApi.onload = initSoundCloudPlayer;
-      document.head.appendChild(soundCloudApi);
     </script>
   </body>
 </html>

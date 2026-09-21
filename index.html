@@ -534,7 +534,8 @@
 
       // Sealed Envelope Actions
       function openEnvelope() {
-        playRomanticChime();
+        // Open the letter even if the optional sound effect cannot play.
+        try { playFlowerPop(); } catch (e) {}
         document.getElementById('envelope-closed').classList.add('hidden');
         document.getElementById('envelope-opened').classList.remove('hidden');
       }

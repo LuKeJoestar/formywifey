@@ -70,6 +70,16 @@
     <!-- Yellow September effects -->
     <div id="yellow-september-effects" class="fixed inset-0 pointer-events-none z-[40] overflow-hidden" aria-hidden="true"></div>
 
+
+    <!-- SoundCloud: Zelda's Lullaby -->
+    <iframe
+      id="soundcloud-player"
+      title="Zelda's Lullaby"
+      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/chubby-bubby-204183146/06-zeldas-lullaby-mp3&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false"
+      style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px;bottom:-9999px;"
+      allow="autoplay"
+    ></iframe>
+
     <!-- Floating Hearts Container -->
     <div id="floating-hearts-container" class="fixed inset-0 pointer-events-none z-50 overflow-hidden"></div>
 
@@ -1074,142 +1084,54 @@
       }
       requestAnimationFrame(updateHeartsPhysics);
 
-      // Web Audio Synth Engine
-      let audioCtx = null;
-      let musicIntervalId = null;
-      let currentOscillators = [];
+      // SoundCloud music player
+      let soundCloudWidget = null;
+      let musicPlaying = false;
 
-      function getAudioContext() {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        return audioCtx;
-      }
-
-      function playRomanticChime() {
-        try {
-          const ctx = getAudioContext();
-          const now = ctx.currentTime;
-          const freqs = [349.23, 440.00, 523.25, 659.25, 783.99]; // F Major 7 / C chord spread
-          freqs.forEach((f, idx) => {
-            const delay = idx * 0.12;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(f, now + delay);
-            gain.gain.setValueAtTime(0, now + delay);
-            gain.gain.linearRampToValueAtTime(0.12, now + delay + 0.05);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 1.2);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(now + delay);
-            osc.stop(now + delay + 1.3);
-          });
-        } catch (e) { console.warn("Audio Context blocked", e); }
-      }
-
-      function playFlowerPop() {
-        try {
-          const ctx = getAudioContext();
-          const now = ctx.currentTime;
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(320, now);
-          osc.frequency.exponentialRampToValueAtTime(680, now + 0.08);
-          gain.gain.setValueAtTime(0.15, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.16);
-        } catch (e) { console.warn("Audio Pop error", e); }
-      }
-
-      function playAmbientNote(freq, dur, vol = 0.04) {
-        try {
-          const ctx = getAudioContext();
-          const now = ctx.currentTime;
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, now);
-          gain.gain.setValueAtTime(0, now);
-          gain.gain.linearRampToValueAtTime(vol, now + 0.4);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + dur + 0.5);
-
-          const record = { osc, gain };
-          currentOscillators.push(record);
-          setTimeout(() => {
-            currentOscillators = currentOscillators.filter(o => o !== record);
-          }, (dur + 1) * 1000);
-        } catch (e) {}
+      function initSoundCloudPlayer() {
+        const iframe = document.getElementById('soundcloud-player');
+        if (!iframe || !window.SC) return;
+        soundCloudWidget = SC.Widget(iframe);
       }
 
       function startBackgroundMusic() {
-        try {
-          const ctx = getAudioContext();
-          if (musicIntervalId) return;
-          const lullaby = [
-            [392.00, 0.65], [523.25, 0.65], [587.33, 0.65], [659.25, 1.10],
-            [587.33, 0.65], [523.25, 0.65], [392.00, 1.20],
-            [329.63, 0.65], [392.00, 0.65], [440.00, 0.65], [523.25, 1.10],
-            [440.00, 0.65], [392.00, 0.65], [329.63, 1.20]
-          ];
-          let step = 0;
-          const playMeasure = () => {
-            const [note, dur] = lullaby[step % lullaby.length];
-            playAmbientNote(note, dur + 0.8, 0.045);
-            if (step % 2 === 0) playAmbientNote(note / 2, dur + 1.2, 0.018);
-            step++;
-          };
-          playMeasure();
-          musicIntervalId = setInterval(playMeasure, 950);
-        } catch (e) { console.warn("Bg Music error", e); }
+        if (!soundCloudWidget) {
+          initSoundCloudPlayer();
+        }
+        if (soundCloudWidget) {
+          soundCloudWidget.play();
+        }
       }
 
       function stopBackgroundMusic() {
-        if (musicIntervalId) {
-          clearInterval(musicIntervalId);
-          musicIntervalId = null;
+        if (soundCloudWidget) {
+          soundCloudWidget.pause();
         }
-        currentOscillators.forEach(({ osc, gain }) => {
-          try {
-            osc.stop();
-            osc.disconnect();
-            gain.disconnect();
-          } catch (e) {}
-        });
-        currentOscillators = [];
       }
 
-      let musicPlaying = false;
       function toggleMusic() {
         musicPlaying = !musicPlaying;
         const toggleBtn = document.getElementById('music-toggle');
         const textSpan = document.getElementById('music-text');
         const icon = document.getElementById('music-icon');
-        
+
         if (musicPlaying) {
           startBackgroundMusic();
-          textSpan.textContent = "Zelda Lullaby ✨🔊";
+          textSpan.textContent = "Zelda's Lullaby ✨🔊";
           toggleBtn.classList.add('bg-amber-100', 'border-amber-300');
           icon.classList.add('animate-pulse');
         } else {
           stopBackgroundMusic();
-          textSpan.textContent = "Zelda Lullaby 🔇";
+          textSpan.textContent = "Zelda's Lullaby 🔇";
           toggleBtn.classList.remove('bg-amber-100', 'border-amber-300');
           icon.classList.remove('animate-pulse');
         }
-        playFlowerPop();
       }
+
+      const soundCloudApi = document.createElement('script');
+      soundCloudApi.src = 'https://w.soundcloud.com/player/api.js';
+      soundCloudApi.onload = initSoundCloudPlayer;
+      document.head.appendChild(soundCloudApi);
     </script>
   </body>
 </html>

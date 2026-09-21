@@ -82,8 +82,10 @@
       @keyframes sparkleFloat { 0%,100%{transform:translateY(5px) scale(.7);opacity:.25} 50%{transform:translateY(-10px) scale(1.25);opacity:.9} }
       @keyframes vaseBreath { 0%,100%{transform:translateY(2px) rotate(-.5deg)} 50%{transform:translateY(-2px) rotate(.5deg)} }
       @keyframes shadowBreath { 0%,100%{transform:scaleX(.9);opacity:.35} 50%{transform:scaleX(1);opacity:.55} }
-      .flower-bloom-in { animation: flowerBloomIn .75s cubic-bezier(.2,.85,.3,1) both, flower-sway var(--sway-duration,5s) ease-in-out infinite alternate .75s; }
-      @keyframes flowerBloomIn { 0%{opacity:0;transform:translateY(35px) scale(.05) rotate(0deg)} 65%{opacity:1;transform:translateY(-5px) scale(1.08) rotate(var(--rotation))} 100%{opacity:1;transform:translateY(0) scale(var(--scale)) rotate(var(--rotation))} }
+      .flower-bloom-in { animation: flowerBloomIn .75s cubic-bezier(.2,.85,.3,1) both; }
+.flower-item.flower-settled { animation: flowerSway var(--sway-duration,5s) ease-in-out infinite alternate; animation-delay: var(--sway-delay,0s); }
+      @keyframes flowerBloomIn { 0%{opacity:0;transform:translate(-50%,35px) scale(.05) rotate(0deg)} 65%{opacity:1;transform:translate(-50%,-5px) scale(1.08) rotate(var(--rotation))} 100%{opacity:1;transform:translate(-50%,0) scale(var(--scale)) rotate(var(--rotation))} }
+@keyframes flowerSway { 0%,100%{transform:translate(-50%,0) scale(var(--scale)) rotate(calc(var(--rotation) - 2deg));} 50%{transform:translate(-50%,0) scale(var(--scale)) rotate(calc(var(--rotation) + 2deg));} }
 
     </style>
   </head>
@@ -949,9 +951,9 @@
         const container = document.getElementById('flowers-container');
         const div = document.createElement('div');
         div.id = id;
-        div.className = 'flower-item origin-bottom absolute transition-all duration-500 ease-out';
+        div.className = 'flower-item origin-bottom absolute z-[25] pointer-events-none';
         div.style.left = `${xOffset}%`;
-        div.style.bottom = '92px';
+        div.style.bottom = '68px';
         div.style.width = '78px';
         div.style.height = `${height}px`;
         div.style.transformOrigin = 'bottom center';
@@ -962,14 +964,18 @@
 
         div.innerHTML = conf.svg(conf.color, id);
         div.style.opacity = '0';
-        div.style.transform = `translateY(50px) scale(0)`;
+        div.style.transform = `translate(-50%, 50px) scale(0)`;
         
         container.appendChild(div);
         
         setTimeout(() => {
           div.style.opacity = '1';
-          div.style.transform = `translateY(0) scale(${scale}) rotate(${rotation}deg)`;
+          div.style.transform = `translate(-50%, 0) scale(${scale}) rotate(${rotation}deg)`;
           div.classList.add('flower-bloom-in');
+          setTimeout(() => {
+            div.classList.remove('flower-bloom-in');
+            div.classList.add('flower-settled');
+          }, 800);
         }, 15);
 
         flowers.push({ id, elem: div });
@@ -978,7 +984,7 @@
           const old = flowers.shift();
           if (old) {
             old.elem.style.opacity = '0';
-            old.elem.style.transform = `translateY(40px) scale(0)`;
+            old.elem.style.transform = `translate(-50%, 40px) scale(0)`;
             setTimeout(() => old.elem.remove(), 500);
           }
         }
@@ -992,7 +998,7 @@
         playFlowerPop();
         flowers.forEach(f => {
           f.elem.style.opacity = '0';
-          f.elem.style.transform = `translateY(40px) scale(0)`;
+          f.elem.style.transform = `translate(-50%, 40px) scale(0)`;
           setTimeout(() => f.elem.remove(), 500);
         });
         flowers = [];

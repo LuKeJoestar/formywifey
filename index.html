@@ -59,8 +59,19 @@
         50% { transform: scale(var(--scale)) rotate(calc(var(--rotation) + 2deg)); }
       }
       .flower-item {
+        z-index: 35;
         animation: flower-sway var(--sway-duration, 5s) ease-in-out infinite alternate;
         animation-delay: var(--sway-delay, 0s);
+        pointer-events: none;
+        will-change: transform, opacity;
+      }
+      @keyframes flower-bloom {
+        0% { opacity: 0; transform: translateY(55px) scale(0) rotate(0deg); }
+        70% { opacity: 1; transform: translateY(-5px) scale(1.06) rotate(var(--rotation)); }
+        100% { opacity: 1; transform: translateY(0) scale(var(--scale)) rotate(var(--rotation)); }
+      }
+      .flower-bloom {
+        animation: flower-bloom 700ms cubic-bezier(.2,.8,.2,1) forwards;
       }
     </style>
   </head>
@@ -403,7 +414,7 @@
             </div>
 
             <!-- Injected Flowers -->
-            <div id="flowers-container" class="absolute inset-0 z-10 pointer-events-none"></div>
+            <div id="flowers-container" class="absolute inset-0 z-30 pointer-events-none"></div>
 
             <!-- Vase Base -->
             <div class="relative w-28 h-28 z-20 flex flex-col items-center justify-end">
@@ -919,7 +930,7 @@
         const container = document.getElementById('flowers-container');
         const div = document.createElement('div');
         div.id = id;
-        div.className = 'flower-item origin-bottom absolute transition-all duration-500 ease-out';
+        div.className = 'flower-item flower-bloom origin-bottom absolute';
         div.style.left = `${xOffset}%`;
         div.style.bottom = '78px';
         div.style.width = '68px';
@@ -932,14 +943,9 @@
 
         div.innerHTML = conf.svg(conf.color, id);
         div.style.opacity = '0';
-        div.style.transform = `translateY(50px) scale(0)`;
+        div.style.transform = `translateY(55px) scale(0) rotate(0deg)`;
         
         container.appendChild(div);
-        
-        setTimeout(() => {
-          div.style.opacity = '1';
-          div.style.transform = `translateY(0) scale(${scale}) rotate(${rotation}deg)`;
-        }, 15);
 
         flowers.push({ id, elem: div });
         
@@ -948,6 +954,7 @@
           if (old) {
             old.elem.style.opacity = '0';
             old.elem.style.transform = `translateY(40px) scale(0)`;
+            old.elem.classList.remove('flower-bloom');
             setTimeout(() => old.elem.remove(), 500);
           }
         }

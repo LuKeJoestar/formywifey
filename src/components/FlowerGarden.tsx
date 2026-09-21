@@ -17,7 +17,7 @@ const FLOWER_TYPES = [
   {
     type: 'rose' as const,
     name: 'Rosa Rosa',
-    color: '#fb7185',
+    color: '#fbbf24',
     emoji: '🌹',
     quote: '🌹 "La rosa es reina de las flores, pero tú eres la reina de mi corazón."',
     svg: (color: string) => (
@@ -31,7 +31,7 @@ const FLOWER_TYPES = [
         <path d="M 75,95 Q 65,85 50,100 Z" fill="#4d7c0f" />
         {/* Bud layers */}
         <ellipse cx="50" cy="55" rx="20" ry="15" fill={color} />
-        <path d="M 33,52 C 35,32 65,32 67,52 C 60,65 40,65 33,52 Z" fill="#f43f5e" />
+        <path d="M 33,52 C 35,32 65,32 67,52 C 60,65 40,65 33,52 Z" fill="#eab308" />
         <path d="M 40,48 C 42,38 58,38 60,48 C 55,55 45,55 40,48 Z" fill="#e11d48" />
         <circle cx="50" cy="46" r="6" fill="#be123c" />
         {/* Outer petal flaps */}
@@ -43,7 +43,7 @@ const FLOWER_TYPES = [
   {
     type: 'tulip' as const,
     name: 'Tulipán Rojo',
-    color: '#ef4444',
+    color: '#d4a017',
     emoji: '🌷',
     quote: '🌷 "Como los tulipanes que buscan el sol, mi vida entera busca tu calor."',
     svg: (color: string) => (
@@ -81,7 +81,7 @@ const FLOWER_TYPES = [
               rx="5"
               ry="16"
               fill={color}
-              stroke="#fbcfe8"
+              stroke="#fde68a"
               strokeWidth="0.5"
               transform={`rotate(${angle})`}
             />
@@ -122,7 +122,7 @@ const FLOWER_TYPES = [
   {
     type: 'orchid' as const,
     name: 'Orquídea Exótica',
-    color: '#ec4899',
+    color: '#facc15',
     emoji: '🌸',
     quote: '🌸 "Eres única, delicada y deslumbrante como la más preciosa de las orquídeas."',
     svg: (color: string) => (
@@ -132,14 +132,14 @@ const FLOWER_TYPES = [
         {/* Orchid petals */}
         <g transform="translate(52, 65)">
           {/* Back sepals */}
-          <ellipse cx="0" cy="-14" rx="10" ry="14" fill="#f472b6" />
-          <ellipse cx="-12" cy="8" rx="10" ry="14" fill="#f472b6" transform="rotate(-45)" />
-          <ellipse cx="12" cy="8" rx="10" ry="14" fill="#f472b6" transform="rotate(45)" />
+          <ellipse cx="0" cy="-14" rx="10" ry="14" fill="#fde047" />
+          <ellipse cx="-12" cy="8" rx="10" ry="14" fill="#fde047" transform="rotate(-45)" />
+          <ellipse cx="12" cy="8" rx="10" ry="14" fill="#fde047" transform="rotate(45)" />
           {/* Front wing petals */}
           <ellipse cx="-16" cy="-4" rx="15" ry="11" fill={color} />
           <ellipse cx="16" cy="-4" rx="15" ry="11" fill={color} />
           {/* Center Orchid Lip */}
-          <path d="M -8,4 Q 0,18 8,4 Q 4,-4 0,0 Q -4,-4 -8,4 Z" fill="#9d174d" stroke="#f43f5e" strokeWidth="1" />
+          <path d="M -8,4 Q 0,18 8,4 Q 4,-4 0,0 Q -4,-4 -8,4 Z" fill="#8a5a00" stroke="#eab308" strokeWidth="1" />
           <circle cx="0" cy="0" r="3" fill="#fde047" />
         </g>
       </svg>
@@ -188,22 +188,22 @@ export default function FlowerGarden({ onPlayPop }: FlowerGardenProps) {
 
   return (
     <div id="flower-garden-container" className="w-full max-w-2xl px-4 py-8 flex flex-col items-center">
-      <div className="bg-white border border-pink-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] w-full flex flex-col items-center relative overflow-hidden">
+      <div className="bg-white border border-amber-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] w-full flex flex-col items-center relative overflow-hidden">
         
         {/* Heading */}
         <div className="text-center mb-6">
-          <span className="text-xs uppercase tracking-widest font-sans font-bold text-[#C9184A] flex items-center justify-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#C9184A] animate-pulse" /> Flores Especiales
+          <span className="text-xs uppercase tracking-widest font-sans font-bold text-[#8A5A00] flex items-center justify-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#8A5A00] animate-pulse" /> Flores Especiales
           </span>
-          <h2 className="font-display text-[#590D22] text-2xl font-bold mt-1">Un Jarrón de Flores para Carolina</h2>
-          <p className="text-xs text-[#590D22]/80 mt-1 italic">
+          <h2 className="font-display text-[#4A3600] text-2xl font-bold mt-1">Un Jarrón de Flores para Carolina</h2>
+          <p className="text-xs text-[#4A3600]/80 mt-1 italic">
             Elige hermosas flores para diseñar un ramo personalizado. Cada flor lleva consigo un sentimiento sincero.
           </p>
         </div>
 
         {/* Live quote board */}
-        <div className="w-full min-h-[52px] bg-[#FFF0F3]/40 border border-[#FFE5EC] rounded-2xl p-3 flex items-center justify-center text-center shadow-inner mb-6">
-          <p className="font-script text-xl md:text-2xl text-[#590D22] leading-relaxed">
+        <div className="w-full min-h-[52px] bg-[#FFF9DB]/40 border border-[#FFF0A8] rounded-2xl p-3 flex items-center justify-center text-center shadow-inner mb-6">
+          <p className="font-script text-xl md:text-2xl text-[#4A3600] leading-relaxed">
             {activeQuote}
           </p>
         </div>
@@ -214,21 +214,21 @@ export default function FlowerGarden({ onPlayPop }: FlowerGardenProps) {
             <button
               key={flower.type}
               onClick={() => addFlower(flower)}
-              className="bg-white hover:bg-[#FFE5EC]/50 border border-pink-100 rounded-2xl p-2 flex flex-col items-center gap-1 justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer"
+              className="bg-white hover:bg-[#FFF0A8]/50 border border-amber-100 rounded-2xl p-2 flex flex-col items-center gap-1 justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer"
             >
               <span className="text-2xl group-hover:animate-bounce">{flower.emoji}</span>
-              <span className="text-xs font-serif font-semibold text-[#C9184A]">{flower.name}</span>
+              <span className="text-xs font-serif font-semibold text-[#8A5A00]">{flower.name}</span>
             </button>
           ))}
         </div>
 
         {/* The Vase Scene Stage */}
-        <div className="relative w-full h-[320px] bg-gradient-to-b from-[#FFF0F3]/20 to-[#FFE5EC]/40 rounded-2xl border border-pink-100 overflow-hidden flex flex-col items-center justify-end shadow-inner p-4">
+        <div className="relative w-full h-[320px] bg-gradient-to-b from-[#FFF9DB]/20 to-[#FFF0A8]/40 rounded-2xl border border-amber-100 overflow-hidden flex flex-col items-center justify-end shadow-inner p-4">
           
           {/* Floral sway wind simulation background elements */}
           <div className="absolute inset-0 pointer-events-none opacity-20">
-            <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-pink-300 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-1/3 right-1/4 w-24 h-24 bg-rose-200 rounded-full blur-2xl"></div>
+            <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-amber-300 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-1/3 right-1/4 w-24 h-24 bg-yellow-200 rounded-full blur-2xl"></div>
           </div>
 
           {/* Rendered Custom Flowers in Vase */}
@@ -278,8 +278,8 @@ export default function FlowerGarden({ onPlayPop }: FlowerGardenProps) {
           <div className="relative w-28 h-28 z-20 flex flex-col items-center justify-end">
             
             {/* Liquid inside the vase */}
-            <div className="absolute bottom-2 inset-x-3 h-16 bg-[#FFB3C1]/30 rounded-b-xl border-t border-pink-300/40 backdrop-blur-xs flex items-center justify-center">
-              <Heart className="w-5 h-5 text-[#FF758F]/50 fill-[#FF758F]/20 animate-pulse" />
+            <div className="absolute bottom-2 inset-x-3 h-16 bg-[#F8D66D]/30 rounded-b-xl border-t border-amber-300/40 backdrop-blur-xs flex items-center justify-center">
+              <Heart className="w-5 h-5 text-[#D99A00]/50 fill-[#D99A00]/20 animate-pulse" />
             </div>
 
             {/* Glass body */}
@@ -288,8 +288,8 @@ export default function FlowerGarden({ onPlayPop }: FlowerGardenProps) {
               <div className="absolute top-4 left-3 w-2 h-16 bg-white/40 rounded-full rotate-6"></div>
               
               {/* Custom Golden Love Crest on Vase */}
-              <div className="bg-[#FFE5EC] border border-[#FF85A1] rounded-full p-1.5 flex items-center justify-center shadow-xs">
-                <Heart className="w-4 h-4 text-[#C9184A] fill-[#FF85A1]" />
+              <div className="bg-[#FFF0A8] border border-[#E9B949] rounded-full p-1.5 flex items-center justify-center shadow-xs">
+                <Heart className="w-4 h-4 text-[#8A5A00] fill-[#E9B949]" />
               </div>
             </div>
 
@@ -298,7 +298,7 @@ export default function FlowerGarden({ onPlayPop }: FlowerGardenProps) {
           </div>
 
           {/* Table surface */}
-          <div className="w-48 h-2 bg-gradient-to-r from-pink-200/40 via-pink-300/50 to-pink-200/40 rounded-full shadow z-0"></div>
+          <div className="w-48 h-2 bg-gradient-to-r from-amber-200/40 via-amber-300/50 to-amber-200/40 rounded-full shadow z-0"></div>
 
         </div>
 
@@ -308,7 +308,7 @@ export default function FlowerGarden({ onPlayPop }: FlowerGardenProps) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             onClick={clearBouquet}
-            className="mt-4 flex items-center gap-1 px-4 py-1.5 bg-[#FFE5EC] hover:bg-[#FFD1DC] text-[#C9184A] rounded-full text-xs font-serif font-semibold border border-pink-200 transition-all shadow-sm cursor-pointer"
+            className="mt-4 flex items-center gap-1 px-4 py-1.5 bg-[#FFF0A8] hover:bg-[#FFE477] text-[#8A5A00] rounded-full text-xs font-serif font-semibold border border-amber-200 transition-all shadow-sm cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" /> Reiniciar Jarrón
           </motion.button>

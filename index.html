@@ -62,6 +62,29 @@
         animation: flower-sway var(--sway-duration, 5s) ease-in-out infinite alternate;
         animation-delay: var(--sway-delay, 0s);
       }
+      .bouquet-stage { isolation: isolate; }
+      .bouquet-glow {
+        position:absolute; width:230px; height:230px; border-radius:50%;
+        background:radial-gradient(circle, rgba(250,204,21,.28) 0%, rgba(250,204,21,.08) 42%, transparent 72%);
+        top:20px; left:50%; transform:translateX(-50%);
+        animation:bloomGlow 4s ease-in-out infinite;
+      }
+      .bouquet-sparkle {
+        position:absolute; z-index:12; color:#d4a017; font-size:18px;
+        animation: sparkleFloat 3s ease-in-out infinite;
+      }
+      .sparkle-one { top:72px; left:18%; animation-delay:-.8s; }
+      .sparkle-two { top:130px; right:18%; animation-delay:-1.7s; }
+      .sparkle-three { top:45px; right:31%; animation-delay:-2.4s; }
+      .elegant-vase { animation:vaseBreath 4s ease-in-out infinite; }
+      .vase-shadow { animation:shadowBreath 4s ease-in-out infinite; }
+      @keyframes bloomGlow { 0%,100%{transform:translateX(-50%) scale(.92);opacity:.65} 50%{transform:translateX(-50%) scale(1.08);opacity:1} }
+      @keyframes sparkleFloat { 0%,100%{transform:translateY(5px) scale(.7);opacity:.25} 50%{transform:translateY(-10px) scale(1.25);opacity:.9} }
+      @keyframes vaseBreath { 0%,100%{transform:translateY(2px) rotate(-.5deg)} 50%{transform:translateY(-2px) rotate(.5deg)} }
+      @keyframes shadowBreath { 0%,100%{transform:scaleX(.9);opacity:.35} 50%{transform:scaleX(1);opacity:.55} }
+      .flower-bloom-in { animation: flowerBloomIn .75s cubic-bezier(.2,.85,.3,1) both, flower-sway var(--sway-duration,5s) ease-in-out infinite alternate .75s; }
+      @keyframes flowerBloomIn { 0%{opacity:0;transform:translateY(35px) scale(.05) rotate(0deg)} 65%{opacity:1;transform:translateY(-5px) scale(1.08) rotate(var(--rotation))} 100%{opacity:1;transform:translateY(0) scale(var(--scale)) rotate(var(--rotation))} }
+
     </style>
   </head>
   <body class="min-h-screen bg-[#FFF9DB] flex flex-col items-center py-10 px-4 relative overflow-x-hidden select-none selection:bg-amber-200">
@@ -398,27 +421,32 @@
             </button>
           </div>
 
-          <!-- Vase Stage Area -->
-          <div class="relative w-full h-[320px] bg-gradient-to-b from-[#FFF9DB]/20 to-[#FFF0A8]/40 rounded-2xl border border-amber-100 overflow-hidden flex flex-col items-center justify-end shadow-inner p-4">
-            <div class="absolute inset-0 pointer-events-none opacity-20">
-              <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-amber-300 rounded-full blur-3xl animate-pulse"></div>
-            </div>
+          <!-- Animated Bouquet & Vase -->
+          <div class="bouquet-stage relative w-full h-[370px] bg-gradient-to-b from-[#fffdf2] via-[#fff8cf] to-[#f9e7a0] rounded-[2rem] border border-[#E9B949]/40 overflow-hidden flex flex-col items-center justify-end shadow-inner p-4">
+            <div class="bouquet-glow"></div>
+            <div class="bouquet-sparkle sparkle-one">✦</div>
+            <div class="bouquet-sparkle sparkle-two">✧</div>
+            <div class="bouquet-sparkle sparkle-three">✦</div>
+            <div class="absolute top-4 left-5 text-amber-300/60 text-xl animate-pulse">✿</div>
+            <div class="absolute top-8 right-7 text-yellow-400/50 text-2xl animate-pulse">✧</div>
 
             <!-- Injected Flowers -->
-            <div id="flowers-container" class="absolute inset-0 z-10 pointer-events-none"></div>
+            <div id="flowers-container" class="absolute inset-0 z-20 pointer-events-none"></div>
 
-            <!-- Vase Base -->
-            <div class="relative w-28 h-28 z-20 flex flex-col items-center justify-end">
-              <div class="absolute bottom-2 inset-x-3 h-16 bg-[#F8D66D]/30 rounded-b-xl border-t border-amber-300/40 backdrop-blur-xs flex items-center justify-center">
-                <i data-lucide="heart" class="w-5 h-5 text-[#D99A00]/50 fill-[#D99A00]/20 animate-pulse"></i>
+            <!-- Elegant glass vase -->
+            <div class="elegant-vase relative z-30 w-[150px] h-[145px] flex flex-col items-center justify-end">
+              <div class="vase-neck absolute top-0 w-[66px] h-[58px] rounded-t-[28px] border-x border-t border-white/80 bg-white/20 backdrop-blur-sm"></div>
+              <div class="vase-rim absolute top-[-5px] w-[82px] h-[17px] rounded-full border-2 border-white/90 bg-white/35 shadow-[0_3px_12px_rgba(217,154,0,0.18)]"></div>
+              <div class="vase-body absolute bottom-0 w-[142px] h-[105px] rounded-[22px_22px_45px_45px] border-2 border-white/80 bg-gradient-to-br from-white/55 via-[#fff9db]/40 to-[#f4d66b]/35 backdrop-blur-md shadow-[0_15px_30px_rgba(145,100,0,0.16)] overflow-hidden">
+                <div class="vase-shine absolute left-[18px] top-[13px] w-[13px] h-[68px] rounded-full bg-white/55 rotate-6"></div>
+                <div class="vase-shine absolute right-[20px] top-[28px] w-[7px] h-[42px] rounded-full bg-white/35 -rotate-6"></div>
+                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[70px] h-[24px] rounded-full bg-[#d4a017]/15 border border-white/40"></div>
+                <div class="absolute top-[38px] left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#fff0a8]/70 border border-[#e9b949]/70 flex items-center justify-center shadow-sm">
+                  <span class="text-[#8a5a00] text-lg">♥</span>
+                </div>
               </div>
-              <div class="absolute inset-0 bg-white/30 border-2 border-white/60 rounded-3xl shadow-lg backdrop-blur-md flex items-center justify-center">
-                <div class="absolute top-4 left-3 w-2 h-16 bg-white/40 rounded-full rotate-6"></div>
-                <div class="bg-[#FFF0A8] border border-[#E9B949] rounded-full p-1.5"><i data-lucide="heart" class="w-4 h-4 text-[#8A5A00] fill-[#E9B949]"></i></div>
-              </div>
-              <div class="absolute -top-3 w-16 h-4 bg-white/40 border-2 border-white/60 rounded-full z-30"></div>
             </div>
-            <div class="w-48 h-2 bg-gradient-to-r from-amber-200/40 via-amber-300/50 to-amber-200/40 rounded-full shadow z-0"></div>
+            <div class="vase-shadow absolute bottom-3 w-56 h-4 rounded-full bg-[#a16207]/15 blur-md"></div>
           </div>
 
           <button id="reset-vase-btn" onclick="clearBouquet()" class="hidden mt-4 flex items-center gap-1 px-4 py-1.5 bg-[#FFF0A8] hover:bg-[#FFE477] text-[#8A5A00] rounded-full text-xs font-serif font-semibold border border-amber-200 shadow-sm cursor-pointer">
@@ -923,8 +951,8 @@
         div.id = id;
         div.className = 'flower-item origin-bottom absolute transition-all duration-500 ease-out';
         div.style.left = `${xOffset}%`;
-        div.style.bottom = '78px';
-        div.style.width = '68px';
+        div.style.bottom = '92px';
+        div.style.width = '78px';
         div.style.height = `${height}px`;
         div.style.transformOrigin = 'bottom center';
         div.style.setProperty('--scale', scale);
@@ -941,6 +969,7 @@
         setTimeout(() => {
           div.style.opacity = '1';
           div.style.transform = `translateY(0) scale(${scale}) rotate(${rotation}deg)`;
+          div.classList.add('flower-bloom-in');
         }, 15);
 
         flowers.push({ id, elem: div });

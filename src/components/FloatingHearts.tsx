@@ -3,13 +3,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Heart as HeartType } from '../types';
 
 const COLORS = [
-  '#f43f5e', // rose-500
-  '#ec4899', // pink-500
-  '#db2777', // pink-600
-  '#f472b6', // pink-400
-  '#fda4af', // rose-300
-  '#f02e65', // vibrant crimson
-  '#ff85a2', // soft pastel pink
+  '#eab308', // yellow-500
+  '#facc15', // amber-500
+  '#d4a017', // amber-600
+  '#fde047', // amber-400
+  '#f8d66d', // yellow-300
+  '#d99a00', // vibrant crimson
+  '#e9b949', // soft pastel pink
 ];
 
 export default function FloatingHearts() {

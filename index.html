@@ -27,7 +27,7 @@
     
     <style>
       body {
-        background-color: #FFF0F3;
+        background-color: #FFF9DB;
         color: #4A0E0E;
         font-family: 'Inter', sans-serif;
         overflow-x: hidden;
@@ -40,9 +40,15 @@
         border-radius: 4px;
       }
       ::-webkit-scrollbar { width: 6px; }
-      ::-webkit-scrollbar-track { background: #FFF0F3; }
-      ::-webkit-scrollbar-thumb { background: #FF85A1; border-radius: 99px; }
-      ::-webkit-scrollbar-thumb:hover { background: #C9184A; }
+      ::-webkit-scrollbar-track { background: #FFF9DB; }
+      ::-webkit-scrollbar-thumb { background: #E9B949; border-radius: 99px; }
+      ::-webkit-scrollbar-thumb:hover { background: #8A5A00; }
+
+      @keyframes yellowSeptemberFloat {
+        0%, 100% { transform: translate3d(0, 0, 0) scale(.7); opacity: .15; }
+        50% { transform: translate3d(8px, -18px, 0) scale(1.15); opacity: .85; }
+      }
+
       @keyframes heartbeat {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.04); }
@@ -58,24 +64,28 @@
       }
     </style>
   </head>
-  <body class="min-h-screen bg-[#FFF0F3] flex flex-col items-center py-10 px-4 relative overflow-x-hidden select-none selection:bg-pink-200">
+  <body class="min-h-screen bg-[#FFF9DB] flex flex-col items-center py-10 px-4 relative overflow-x-hidden select-none selection:bg-amber-200">
     
+
+    <!-- Yellow September effects -->
+    <div id="yellow-september-effects" class="fixed inset-0 pointer-events-none z-[40] overflow-hidden" aria-hidden="true"></div>
+
     <!-- Floating Hearts Container -->
     <div id="floating-hearts-container" class="fixed inset-0 pointer-events-none z-50 overflow-hidden"></div>
 
     <!-- Background Ambient Lighting Blobs -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#FFB3C1]/20 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-1/4 left-10 w-60 h-60 bg-[#FF85A1]/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#F8D66D]/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-1/4 left-10 w-60 h-60 bg-[#E9B949]/10 rounded-full blur-3xl pointer-events-none"></div>
 
     <!-- Header -->
     <header class="w-full max-w-2xl text-center mb-8 relative z-20">
-      <span class="text-pink-500 uppercase tracking-[0.3em] text-xs font-bold font-sans flex items-center justify-center gap-1.5">
-        <i data-lucide="heart" class="w-4 h-4 fill-pink-500 text-pink-500 animate-pulse"></i> Creado Especialmente Para Ti
+      <span class="text-amber-500 uppercase tracking-[0.3em] text-xs font-bold font-sans flex items-center justify-center gap-1.5">
+        <i data-lucide="heart" class="w-4 h-4 fill-amber-500 text-amber-500 animate-pulse"></i> Creado Especialmente Para Ti • Septiembre Amarillo
       </span>
-      <h1 class="font-display italic text-[#C9184A] text-5xl md:text-6xl font-normal mt-2 tracking-wide">
+      <h1 class="font-display italic text-[#8A5A00] text-5xl md:text-6xl font-normal mt-2 tracking-wide">
         Para Mi Querida Carolina
       </h1>
-      <p class="font-serif italic text-[#590D22]/80 text-sm md:text-base mt-2 max-w-md mx-auto leading-relaxed">
+      <p class="font-serif italic text-[#4A3600]/80 text-sm md:text-base mt-2 max-w-md mx-auto leading-relaxed">
         Un rinconcito de amor interactivo, diseñado para recordarte lo valiosa que eres y lo mucho que te amo.
       </p>
     </header>
@@ -84,19 +94,19 @@
     <main class="w-full max-w-2xl flex flex-col items-center gap-6 relative z-10">
       
       <!-- Love Phrase Widget -->
-      <div class="w-full bg-white border border-pink-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] flex flex-col items-center text-center relative overflow-hidden">
-        <div class="absolute top-2 right-2 text-pink-200">
+      <div class="w-full bg-white border border-amber-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] flex flex-col items-center text-center relative overflow-hidden">
+        <div class="absolute top-2 right-2 text-amber-200">
           <i data-lucide="sparkles" class="w-8 h-8"></i>
         </div>
-        <p class="text-xs text-pink-500 uppercase tracking-widest font-sans font-bold mb-3">Pensamiento de Amor</p>
+        <p class="text-xs text-amber-500 uppercase tracking-widest font-sans font-bold mb-3">Pensamiento de Amor</p>
         <div class="min-h-[60px] flex items-center justify-center px-4">
-          <p id="phrase-text" class="font-script text-[#590D22] text-2xl md:text-3xl leading-relaxed transition-all duration-300">
+          <p id="phrase-text" class="font-script text-[#4A3600] text-2xl md:text-3xl leading-relaxed transition-all duration-300">
             "No hay día en el que mi corazón no elija estar contigo."
           </p>
         </div>
         <button
           onclick="getNewPhrase()"
-          class="mt-4 px-4 py-1.5 bg-[#FFE5EC] hover:bg-[#FFD1DC] text-[#C9184A] rounded-full text-xs font-serif font-semibold border border-pink-200 shadow-sm transition-all active:scale-95 cursor-pointer"
+          class="mt-4 px-4 py-1.5 bg-[#FFF0A8] hover:bg-[#FFE477] text-[#8A5A00] rounded-full text-xs font-serif font-semibold border border-amber-200 shadow-sm transition-all active:scale-95 cursor-pointer"
         >
           ❀ Recibir Otro Mensaje
         </button>
@@ -104,47 +114,47 @@
 
       <!-- Anniversary Counter Widget -->
       <div class="w-full">
-        <div class="bg-white border border-pink-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] flex flex-col items-center relative overflow-hidden">
-          <div class="absolute top-2 left-2 text-[#FFB3C1] opacity-40">
-            <i data-lucide="heart" class="w-8 h-8 fill-[#FFE5EC] text-pink-200"></i>
+        <div class="bg-white border border-amber-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] flex flex-col items-center relative overflow-hidden">
+          <div class="absolute top-2 left-2 text-[#F8D66D] opacity-40">
+            <i data-lucide="heart" class="w-8 h-8 fill-[#FFF0A8] text-amber-200"></i>
           </div>
-          <div class="absolute bottom-2 right-2 text-[#FFB3C1] opacity-40">
-            <i data-lucide="heart" class="w-10 h-10 fill-[#FFE5EC] text-pink-200"></i>
+          <div class="absolute bottom-2 right-2 text-[#F8D66D] opacity-40">
+            <i data-lucide="heart" class="w-10 h-10 fill-[#FFF0A8] text-amber-200"></i>
           </div>
 
-          <div class="flex justify-between items-center w-full border-b border-pink-100 pb-3 mb-6">
-            <span class="text-xs font-sans uppercase tracking-wider font-bold text-[#C9184A] flex items-center gap-1.5">
-              <i data-lucide="clock" class="w-4 h-4 text-[#C9184A]"></i> Nuestro Tiempo Juntos
+          <div class="flex justify-between items-center w-full border-b border-amber-100 pb-3 mb-6">
+            <span class="text-xs font-sans uppercase tracking-wider font-bold text-[#8A5A00] flex items-center gap-1.5">
+              <i data-lucide="clock" class="w-4 h-4 text-[#8A5A00]"></i> Nuestro Tiempo Juntos
             </span>
           </div>
 
           <div class="text-center mb-6">
-            <p class="text-xs text-[#FF758F] uppercase tracking-widest font-sans font-bold mb-1">Días Amándote</p>
+            <p class="text-xs text-[#D99A00] uppercase tracking-widest font-sans font-bold mb-1">Días Amándote</p>
             <div class="flex items-center justify-center gap-2 mb-2 animate-heartbeat">
-              <i data-lucide="heart" class="w-8 h-8 text-[#C9184A] fill-[#FF85A1]"></i>
-              <h3 id="days-count" class="font-display text-[#590D22] text-4xl md:text-5xl font-black tracking-tight">0</h3>
-              <i data-lucide="heart" class="w-8 h-8 text-[#C9184A] fill-[#FF85A1]"></i>
+              <i data-lucide="heart" class="w-8 h-8 text-[#8A5A00] fill-[#E9B949]"></i>
+              <h3 id="days-count" class="font-display text-[#4A3600] text-4xl md:text-5xl font-black tracking-tight">0</h3>
+              <i data-lucide="heart" class="w-8 h-8 text-[#8A5A00] fill-[#E9B949]"></i>
             </div>
-            <p class="text-xs font-serif italic text-[#590D22]/80">desde el 12 de abril de 2026</p>
+            <p class="text-xs font-serif italic text-[#4A3600]/80">desde el 12 de abril de 2026</p>
           </div>
 
           <div class="grid grid-cols-3 gap-3 w-full">
-            <div class="bg-[#FFF0F3] border border-[#FFE5EC] rounded-2xl p-3 flex flex-col items-center shadow-xs">
-              <span id="hours-count" class="text-xl md:text-2xl font-black text-[#590D22] font-sans tracking-tight">00</span>
-              <span class="text-[10px] font-serif uppercase tracking-widest text-[#C9184A] font-semibold mt-0.5">Horas</span>
+            <div class="bg-[#FFF9DB] border border-[#FFF0A8] rounded-2xl p-3 flex flex-col items-center shadow-xs">
+              <span id="hours-count" class="text-xl md:text-2xl font-black text-[#4A3600] font-sans tracking-tight">00</span>
+              <span class="text-[10px] font-serif uppercase tracking-widest text-[#8A5A00] font-semibold mt-0.5">Horas</span>
             </div>
-            <div class="bg-[#FFF0F3] border border-[#FFE5EC] rounded-2xl p-3 flex flex-col items-center shadow-xs">
-              <span id="minutes-count" class="text-xl md:text-2xl font-black text-[#590D22] font-sans tracking-tight">00</span>
-              <span class="text-[10px] font-serif uppercase tracking-widest text-[#C9184A] font-semibold mt-0.5">Minutos</span>
+            <div class="bg-[#FFF9DB] border border-[#FFF0A8] rounded-2xl p-3 flex flex-col items-center shadow-xs">
+              <span id="minutes-count" class="text-xl md:text-2xl font-black text-[#4A3600] font-sans tracking-tight">00</span>
+              <span class="text-[10px] font-serif uppercase tracking-widest text-[#8A5A00] font-semibold mt-0.5">Minutos</span>
             </div>
-            <div class="bg-[#FFF0F3] border border-[#FFE5EC] rounded-2xl p-3 flex flex-col items-center shadow-xs">
-              <span id="seconds-count" class="text-xl md:text-2xl font-black text-[#C9184A] font-sans tracking-tight animate-pulse">00</span>
-              <span class="text-[10px] font-serif uppercase tracking-widest text-[#C9184A] font-semibold mt-0.5">Segundos</span>
+            <div class="bg-[#FFF9DB] border border-[#FFF0A8] rounded-2xl p-3 flex flex-col items-center shadow-xs">
+              <span id="seconds-count" class="text-xl md:text-2xl font-black text-[#8A5A00] font-sans tracking-tight animate-pulse">00</span>
+              <span class="text-[10px] font-serif uppercase tracking-widest text-[#8A5A00] font-semibold mt-0.5">Segundos</span>
             </div>
           </div>
 
           <div class="mt-5 text-center">
-            <p class="text-xs font-serif italic text-[#590D22] leading-relaxed max-w-md">
+            <p class="text-xs font-serif italic text-[#4A3600] leading-relaxed max-w-md">
               "Cada hora, cada minuto y cada segundo a tu lado, Carolina, confirma que contigo encontré mi lugar favorito en el universo entero."
             </p>
           </div>
@@ -157,80 +167,80 @@
         <div
           id="envelope-closed"
           onclick="openEnvelope()"
-          class="cursor-pointer relative w-full aspect-[1.618] bg-white rounded-2xl shadow-[0_15px_40px_rgba(255,133,161,0.25)] border-2 border-[#FFB3C1] flex flex-col items-center justify-center p-6 overflow-hidden hover:scale-[1.01] transition-all duration-300"
+          class="cursor-pointer relative w-full aspect-[1.618] bg-white rounded-2xl shadow-[0_15px_40px_rgba(255,133,161,0.25)] border-2 border-[#F8D66D] flex flex-col items-center justify-center p-6 overflow-hidden hover:scale-[1.01] transition-all duration-300"
         >
-          <div class="absolute top-4 right-4 w-12 h-14 border border-dashed border-[#FF758F] bg-[#FFE5EC]/50 flex flex-col items-center justify-center p-1 rounded">
-            <span class="text-[10px] font-serif text-[#C9184A] uppercase tracking-widest font-bold">Amor</span>
-            <i data-lucide="heart" class="w-4 h-4 text-[#C9184A] fill-[#FF85A1] animate-pulse mt-0.5"></i>
+          <div class="absolute top-4 right-4 w-12 h-14 border border-dashed border-[#D99A00] bg-[#FFF0A8]/50 flex flex-col items-center justify-center p-1 rounded">
+            <span class="text-[10px] font-serif text-[#8A5A00] uppercase tracking-widest font-bold">Amor</span>
+            <i data-lucide="heart" class="w-4 h-4 text-[#8A5A00] fill-[#E9B949] animate-pulse mt-0.5"></i>
           </div>
-          <div class="absolute top-4 left-4 text-[#FFB3C1]"><i data-lucide="flower" class="w-6 h-6 rotate-12"></i></div>
-          <div class="absolute bottom-4 right-4 text-[#FFB3C1]"><i data-lucide="flower" class="w-6 h-6 -rotate-12"></i></div>
+          <div class="absolute top-4 left-4 text-[#F8D66D]"><i data-lucide="flower" class="w-6 h-6 rotate-12"></i></div>
+          <div class="absolute bottom-4 right-4 text-[#F8D66D]"><i data-lucide="flower" class="w-6 h-6 -rotate-12"></i></div>
 
           <div class="text-center z-10">
-            <p class="font-serif italic text-[#C9184A] text-lg mb-1">Para el amor de mi vida</p>
-            <h2 class="font-display font-medium text-[#590D22] tracking-wider text-3xl mb-4">Carolina ♥</h2>
+            <p class="font-serif italic text-[#8A5A00] text-lg mb-1">Para el amor de mi vida</p>
+            <h2 class="font-display font-medium text-[#4A3600] tracking-wider text-3xl mb-4">Carolina ♥</h2>
             
-            <div class="mx-auto w-16 h-16 bg-[#C9184A] hover:bg-[#A30F37] rounded-full flex items-center justify-center shadow-lg border-2 border-[#FFB3C1] relative animate-heartbeat">
+            <div class="mx-auto w-16 h-16 bg-[#8A5A00] hover:bg-[#6E4800] rounded-full flex items-center justify-center shadow-lg border-2 border-[#F8D66D] relative animate-heartbeat">
               <i data-lucide="heart" class="w-8 h-8 text-white fill-white"></i>
-              <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-serif italic text-[#C9184A] font-medium whitespace-nowrap bg-white px-2.5 py-0.5 rounded-full shadow-md border border-[#FFE5EC]">
+              <span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-serif italic text-[#8A5A00] font-medium whitespace-nowrap bg-white px-2.5 py-0.5 rounded-full shadow-md border border-[#FFF0A8]">
                 Haz clic para abrir
               </span>
             </div>
           </div>
-          <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-[#FF99B2] via-[#FF5C8A] to-[#FF99B2]"></div>
+          <div class="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-[#E8BE4F] via-[#C9971A] to-[#E8BE4F]"></div>
         </div>
 
         <!-- OPENED state -->
         <div
           id="envelope-opened"
-          class="hidden w-full bg-white rounded-3xl shadow-[0_15px_45px_rgba(255,133,161,0.25)] border border-[#FFB3C1] overflow-hidden flex flex-col h-[540px] relative transition-all"
+          class="hidden w-full bg-white rounded-3xl shadow-[0_15px_45px_rgba(255,133,161,0.25)] border border-[#F8D66D] overflow-hidden flex flex-col h-[540px] relative transition-all"
         >
-          <div class="bg-[#FFE5EC] h-[16px] w-full border-b border-pink-100"></div>
+          <div class="bg-[#FFF0A8] h-[16px] w-full border-b border-amber-100"></div>
 
           <!-- Tab Bar -->
-          <div class="flex border-b border-pink-100 bg-[#FFF0F3]/40 p-2 justify-between items-center px-4 md:px-6">
+          <div class="flex border-b border-amber-100 bg-[#FFF9DB]/40 p-2 justify-between items-center px-4 md:px-6">
             <div class="flex gap-1 md:gap-2">
-              <button id="tab-btn-letter" onclick="selectTab('letter')" class="px-3 py-1.5 rounded-full text-xs font-serif bg-[#C9184A] text-white font-bold shadow-sm transition-all">✉ Carta</button>
-              <button id="tab-btn-reasons" onclick="selectTab('reasons')" class="px-3 py-1.5 rounded-full text-xs font-serif text-[#C9184A] hover:bg-[#FFE5EC] transition-all">✨ Razones</button>
-              <button id="tab-btn-promises" onclick="selectTab('promises')" class="px-3 py-1.5 rounded-full text-xs font-serif text-[#C9184A] hover:bg-[#FFE5EC] transition-all">🌸 Promesas</button>
+              <button id="tab-btn-letter" onclick="selectTab('letter')" class="px-3 py-1.5 rounded-full text-xs font-serif bg-[#8A5A00] text-white font-bold shadow-sm transition-all">✉ Carta</button>
+              <button id="tab-btn-reasons" onclick="selectTab('reasons')" class="px-3 py-1.5 rounded-full text-xs font-serif text-[#8A5A00] hover:bg-[#FFF0A8] transition-all">✨ Razones</button>
+              <button id="tab-btn-promises" onclick="selectTab('promises')" class="px-3 py-1.5 rounded-full text-xs font-serif text-[#8A5A00] hover:bg-[#FFF0A8] transition-all">🌸 Promesas</button>
             </div>
             <div class="flex gap-1">
-              <button id="letter-edit-btn" onclick="toggleEditLetter(true)" class="p-1.5 hover:bg-[#FFE5EC] rounded-full text-[#C9184A] transition-colors"><i data-lucide="pen-tool" class="w-4 h-4"></i></button>
-              <button onclick="closeEnvelope()" class="p-1.5 hover:bg-[#FFE5EC] rounded-full text-[#C9184A] transition-colors"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button>
+              <button id="letter-edit-btn" onclick="toggleEditLetter(true)" class="p-1.5 hover:bg-[#FFF0A8] rounded-full text-[#8A5A00] transition-colors"><i data-lucide="pen-tool" class="w-4 h-4"></i></button>
+              <button onclick="closeEnvelope()" class="p-1.5 hover:bg-[#FFF0A8] rounded-full text-[#8A5A00] transition-colors"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button>
             </div>
           </div>
 
           <!-- Letter Scroll Container -->
           <div class="flex-1 overflow-y-auto p-6 md:p-8 relative">
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none z-0">
-              <i data-lucide="heart" class="w-64 h-64 fill-[#C9184A] text-[#C9184A]"></i>
+              <i data-lucide="heart" class="w-64 h-64 fill-[#8A5A00] text-[#8A5A00]"></i>
             </div>
 
             <!-- Tab: Letter -->
             <div id="tab-content-letter" class="h-full relative z-10 flex flex-col justify-between">
               <div id="letter-display-mode" class="h-full flex flex-col justify-between">
                 <div>
-                  <h3 id="letter-title-display" class="font-display font-bold italic text-[#C9184A] text-2xl md:text-3xl mb-6 tracking-wide border-b border-[#FFE5EC] pb-2">Mi Querida Carolina</h3>
-                  <p id="letter-content-display" class="whitespace-pre-line text-xl md:text-2xl leading-[2.5rem] text-[#590D22] font-script pt-1">
+                  <h3 id="letter-title-display" class="font-display font-bold italic text-[#8A5A00] text-2xl md:text-3xl mb-6 tracking-wide border-b border-[#FFF0A8] pb-2">Mi Querida Carolina</h3>
+                  <p id="letter-content-display" class="whitespace-pre-line text-xl md:text-2xl leading-[2.5rem] text-[#4A3600] font-script pt-1">
                     Cada día que pasa me doy cuenta de la suerte inmensa que tengo de tenerte en mi vida. Eres la luz que ilumina mis mañanas y la paz que me abraza por las noches.
                   </p>
                 </div>
-                <div class="mt-12 text-right border-t border-[#FFE5EC] pt-4">
-                  <p class="text-xs text-pink-400 uppercase tracking-widest font-sans font-semibold mb-1">Para siempre con amor</p>
-                  <span id="letter-sign-display" class="font-script text-[#C9184A] text-3xl md:text-4xl block">Con todo mi amor</span>
+                <div class="mt-12 text-right border-t border-[#FFF0A8] pt-4">
+                  <p class="text-xs text-amber-400 uppercase tracking-widest font-sans font-semibold mb-1">Para siempre con amor</p>
+                  <span id="letter-sign-display" class="font-script text-[#8A5A00] text-3xl md:text-4xl block">Con todo mi amor</span>
                 </div>
               </div>
 
               <!-- Edit Panel -->
               <div id="letter-edit-mode" class="hidden flex flex-col gap-3 h-full">
-                <label class="text-xs font-sans uppercase tracking-widest text-[#C9184A] font-bold">Encabezado de la carta</label>
-                <input id="edit-title-input" type="text" class="w-full bg-white border border-pink-200 rounded-lg p-2 font-serif text-lg text-pink-900 focus:outline-none" />
-                <label class="text-xs font-sans uppercase tracking-widest text-[#C9184A] font-bold mt-1">Cuerpo del mensaje</label>
-                <textarea id="edit-content-input" rows="5" class="w-full bg-white border border-pink-200 rounded-lg p-2 font-serif text-sm focus:outline-none leading-relaxed resize-none flex-1"></textarea>
-                <label class="text-xs font-sans uppercase tracking-widest text-[#C9184A] font-bold mt-1">Firma</label>
-                <input id="edit-sign-input" type="text" class="w-full bg-white border border-pink-200 rounded-lg p-2 font-serif italic text-pink-800 focus:outline-none" />
+                <label class="text-xs font-sans uppercase tracking-widest text-[#8A5A00] font-bold">Encabezado de la carta</label>
+                <input id="edit-title-input" type="text" class="w-full bg-white border border-amber-200 rounded-lg p-2 font-serif text-lg text-amber-900 focus:outline-none" />
+                <label class="text-xs font-sans uppercase tracking-widest text-[#8A5A00] font-bold mt-1">Cuerpo del mensaje</label>
+                <textarea id="edit-content-input" rows="5" class="w-full bg-white border border-amber-200 rounded-lg p-2 font-serif text-sm focus:outline-none leading-relaxed resize-none flex-1"></textarea>
+                <label class="text-xs font-sans uppercase tracking-widest text-[#8A5A00] font-bold mt-1">Firma</label>
+                <input id="edit-sign-input" type="text" class="w-full bg-white border border-amber-200 rounded-lg p-2 font-serif italic text-amber-800 focus:outline-none" />
                 <div class="flex gap-2 justify-end mt-2">
-                  <button onclick="resetToDefault()" class="px-3 py-1 bg-pink-100 rounded text-xs font-sans text-pink-700 cursor-pointer">Por Defecto</button>
+                  <button onclick="resetToDefault()" class="px-3 py-1 bg-amber-100 rounded text-xs font-sans text-amber-700 cursor-pointer">Por Defecto</button>
                   <button onclick="saveCustomChanges()" class="px-4 py-1 bg-emerald-500 rounded text-white text-xs font-sans flex items-center gap-1 cursor-pointer"><i data-lucide="check" class="w-3.5 h-3.5"></i> Guardar</button>
                 </div>
               </div>
@@ -238,67 +248,67 @@
 
             <!-- Tab: Reasons -->
             <div id="tab-content-reasons" class="hidden relative z-10 flex flex-col gap-3">
-              <h3 class="font-display font-medium text-[#C9184A] text-xl mb-3 border-b border-pink-100 pb-2 flex items-center gap-2">
+              <h3 class="font-display font-medium text-[#8A5A00] text-xl mb-3 border-b border-amber-100 pb-2 flex items-center gap-2">
                 <i data-lucide="sparkles" class="w-5 h-5 text-amber-500 animate-pulse"></i> Por qué te amo, Carolina...
               </h3>
               <div class="flex flex-col gap-2">
                 <!-- 5 Reason cards -->
-                <div class="border border-pink-100 rounded-xl overflow-hidden bg-white">
-                  <button onclick="toggleReason(0)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF0F3]/50 cursor-pointer">
-                    <span class="font-semibold text-sm text-[#590D22] flex items-center gap-2">
-                      <span class="bg-[#FFE5EC] text-[#C9184A] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">1</span>Tu hermosa sonrisa
+                <div class="border border-amber-100 rounded-xl overflow-hidden bg-white">
+                  <button onclick="toggleReason(0)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF9DB]/50 cursor-pointer">
+                    <span class="font-semibold text-sm text-[#4A3600] flex items-center gap-2">
+                      <span class="bg-[#FFF0A8] text-[#8A5A00] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">1</span>Tu hermosa sonrisa
                     </span>
-                    <i id="reason-heart-0" data-lucide="heart" class="w-4 h-4 text-pink-300"></i>
+                    <i id="reason-heart-0" data-lucide="heart" class="w-4 h-4 text-amber-300"></i>
                   </button>
-                  <div id="reason-content-0" class="hidden bg-[#FFF0F3]/20 border-t border-pink-50 p-4 text-[#590D22] font-script text-2xl leading-relaxed">
+                  <div id="reason-content-0" class="hidden bg-[#FFF9DB]/20 border-t border-amber-50 p-4 text-[#4A3600] font-script text-2xl leading-relaxed">
                     Tiene el poder mágico de alegrar incluso mis días más grises y difíciles. Ver tu sonrisa es ver la felicidad en estado puro.
                   </div>
                 </div>
 
-                <div class="border border-pink-100 rounded-xl overflow-hidden bg-white">
-                  <button onclick="toggleReason(1)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF0F3]/50 cursor-pointer">
-                    <span class="font-semibold text-sm text-[#590D22] flex items-center gap-2">
-                      <span class="bg-[#FFE5EC] text-[#C9184A] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">2</span>Tu inmenso corazón
+                <div class="border border-amber-100 rounded-xl overflow-hidden bg-white">
+                  <button onclick="toggleReason(1)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF9DB]/50 cursor-pointer">
+                    <span class="font-semibold text-sm text-[#4A3600] flex items-center gap-2">
+                      <span class="bg-[#FFF0A8] text-[#8A5A00] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">2</span>Tu inmenso corazón
                     </span>
-                    <i id="reason-heart-1" data-lucide="heart" class="w-4 h-4 text-pink-300"></i>
+                    <i id="reason-heart-1" data-lucide="heart" class="w-4 h-4 text-amber-300"></i>
                   </button>
-                  <div id="reason-content-1" class="hidden bg-[#FFF0F3]/20 border-t border-pink-50 p-4 text-[#590D22] font-script text-2xl leading-relaxed">
+                  <div id="reason-content-1" class="hidden bg-[#FFF9DB]/20 border-t border-amber-50 p-4 text-[#4A3600] font-script text-2xl leading-relaxed">
                     Tu bondad, empatía y la forma tan dulce en la que cuidas a los que amas me inspira a ser una mejor persona cada día.
                   </div>
                 </div>
 
-                <div class="border border-pink-100 rounded-xl overflow-hidden bg-white">
-                  <button onclick="toggleReason(2)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF0F3]/50 cursor-pointer">
-                    <span class="font-semibold text-sm text-[#590D22] flex items-center gap-2">
-                      <span class="bg-[#FFE5EC] text-[#C9184A] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">3</span>Tu apoyo incondicional
+                <div class="border border-amber-100 rounded-xl overflow-hidden bg-white">
+                  <button onclick="toggleReason(2)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF9DB]/50 cursor-pointer">
+                    <span class="font-semibold text-sm text-[#4A3600] flex items-center gap-2">
+                      <span class="bg-[#FFF0A8] text-[#8A5A00] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">3</span>Tu apoyo incondicional
                     </span>
-                    <i id="reason-heart-2" data-lucide="heart" class="w-4 h-4 text-pink-300"></i>
+                    <i id="reason-heart-2" data-lucide="heart" class="w-4 h-4 text-amber-300"></i>
                   </button>
-                  <div id="reason-content-2" class="hidden bg-[#FFF0F3]/20 border-t border-pink-50 p-4 text-[#590D22] font-script text-2xl leading-relaxed">
+                  <div id="reason-content-2" class="hidden bg-[#FFF9DB]/20 border-t border-amber-50 p-4 text-[#4A3600] font-script text-2xl leading-relaxed">
                     Saber que estás a mi lado me da toda la fuerza del mundo. Eres mi refugio seguro y mi mayor motivación.
                   </div>
                 </div>
 
-                <div class="border border-pink-100 rounded-xl overflow-hidden bg-white">
-                  <button onclick="toggleReason(3)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF0F3]/50 cursor-pointer">
-                    <span class="font-semibold text-sm text-[#590D22] flex items-center gap-2">
-                      <span class="bg-[#FFE5EC] text-[#C9184A] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">4</span>Tus pequeños detalles
+                <div class="border border-amber-100 rounded-xl overflow-hidden bg-white">
+                  <button onclick="toggleReason(3)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF9DB]/50 cursor-pointer">
+                    <span class="font-semibold text-sm text-[#4A3600] flex items-center gap-2">
+                      <span class="bg-[#FFF0A8] text-[#8A5A00] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">4</span>Tus pequeños detalles
                     </span>
-                    <i id="reason-heart-3" data-lucide="heart" class="w-4 h-4 text-pink-300"></i>
+                    <i id="reason-heart-3" data-lucide="heart" class="w-4 h-4 text-amber-300"></i>
                   </button>
-                  <div id="reason-content-3" class="hidden bg-[#FFF0F3]/20 border-t border-pink-50 p-4 text-[#590D22] font-script text-2xl leading-relaxed">
+                  <div id="reason-content-3" class="hidden bg-[#FFF9DB]/20 border-t border-amber-50 p-4 text-[#4A3600] font-script text-2xl leading-relaxed">
                     Tus miradas, tus mensajes inesperados y tu forma única de demostrar amor hacen de la vida cotidiana algo extraordinario.
                   </div>
                 </div>
 
-                <div class="border border-pink-100 rounded-xl overflow-hidden bg-white">
-                  <button onclick="toggleReason(4)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF0F3]/50 cursor-pointer">
-                    <span class="font-semibold text-sm text-[#590D22] flex items-center gap-2">
-                      <span class="bg-[#FFE5EC] text-[#C9184A] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">5</span>Cómo me haces sentir
+                <div class="border border-amber-100 rounded-xl overflow-hidden bg-white">
+                  <button onclick="toggleReason(4)" class="w-full text-left p-3 flex justify-between items-center hover:bg-[#FFF9DB]/50 cursor-pointer">
+                    <span class="font-semibold text-sm text-[#4A3600] flex items-center gap-2">
+                      <span class="bg-[#FFF0A8] text-[#8A5A00] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold font-sans">5</span>Cómo me haces sentir
                     </span>
-                    <i id="reason-heart-4" data-lucide="heart" class="w-4 h-4 text-pink-300"></i>
+                    <i id="reason-heart-4" data-lucide="heart" class="w-4 h-4 text-amber-300"></i>
                   </button>
-                  <div id="reason-content-4" class="hidden bg-[#FFF0F3]/20 border-t border-pink-50 p-4 text-[#590D22] font-script text-2xl leading-relaxed">
+                  <div id="reason-content-4" class="hidden bg-[#FFF9DB]/20 border-t border-amber-50 p-4 text-[#4A3600] font-script text-2xl leading-relaxed">
                     A tu lado me siento la persona más afortunada del planeta. Me llenas de paz, alegría y un amor infinito.
                   </div>
                 </div>
@@ -307,23 +317,23 @@
 
             <!-- Tab: Promises -->
             <div id="tab-content-promises" class="hidden relative z-10 flex flex-col gap-3">
-              <h3 class="font-display font-medium text-[#C9184A] text-xl mb-1 border-b border-pink-100 pb-2">🌱 Mis Promesas para ti</h3>
+              <h3 class="font-display font-medium text-[#8A5A00] text-xl mb-1 border-b border-amber-100 pb-2">🌱 Mis Promesas para ti</h3>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div class="p-4 rounded-2xl bg-white border border-[#FFE5EC]">
-                  <h4 class="font-semibold text-sm text-[#C9184A] mb-1 flex items-center gap-1"><span class="text-[#FF758F]">❀</span> Estar siempre a tu lado</h4>
-                  <p class="text-xs text-[#590D22] italic font-serif">En los días soleados para celebrar y en los días lluviosos para sostener tu mano fuerte.</p>
+                <div class="p-4 rounded-2xl bg-white border border-[#FFF0A8]">
+                  <h4 class="font-semibold text-sm text-[#8A5A00] mb-1 flex items-center gap-1"><span class="text-[#D99A00]">❀</span> Estar siempre a tu lado</h4>
+                  <p class="text-xs text-[#4A3600] italic font-serif">En los días soleados para celebrar y en los días lluviosos para sostener tu mano fuerte.</p>
                 </div>
-                <div class="p-4 rounded-2xl bg-white border border-[#FFE5EC]">
-                  <h4 class="font-semibold text-sm text-[#C9184A] mb-1 flex items-center gap-1"><span class="text-[#FF758F]">❀</span> Escucharte y apoyarte</h4>
-                  <p class="text-xs text-[#590D22] italic font-serif">En cada sueño, en cada reto y en cada pequeña anécdota de tu día a día.</p>
+                <div class="p-4 rounded-2xl bg-white border border-[#FFF0A8]">
+                  <h4 class="font-semibold text-sm text-[#8A5A00] mb-1 flex items-center gap-1"><span class="text-[#D99A00]">❀</span> Escucharte y apoyarte</h4>
+                  <p class="text-xs text-[#4A3600] italic font-serif">En cada sueño, en cada reto y en cada pequeña anécdota de tu día a día.</p>
                 </div>
-                <div class="p-4 rounded-2xl bg-white border border-[#FFE5EC]">
-                  <h4 class="font-semibold text-sm text-[#C9184A] mb-1 flex items-center gap-1"><span class="text-[#FF758F]">❀</span> Crear recuerdos juntos</h4>
-                  <p class="text-xs text-[#590D22] italic font-serif">Viajar, reír a carcajadas, cocinar juntos y llenar nuestro álbum de momentos inolvidables.</p>
+                <div class="p-4 rounded-2xl bg-white border border-[#FFF0A8]">
+                  <h4 class="font-semibold text-sm text-[#8A5A00] mb-1 flex items-center gap-1"><span class="text-[#D99A00]">❀</span> Crear recuerdos juntos</h4>
+                  <p class="text-xs text-[#4A3600] italic font-serif">Viajar, reír a carcajadas, cocinar juntos y llenar nuestro álbum de momentos inolvidables.</p>
                 </div>
-                <div class="p-4 rounded-2xl bg-white border border-[#FFE5EC]">
-                  <h4 class="font-semibold text-sm text-[#C9184A] mb-1 flex items-center gap-1"><span class="text-[#FF758F]">❀</span> Amarte cada día más</h4>
-                  <p class="text-xs text-[#590D22] italic font-serif">Descubrir nuevas formas de hacerte feliz y recordarte siempre lo valiosa que eres.</p>
+                <div class="p-4 rounded-2xl bg-white border border-[#FFF0A8]">
+                  <h4 class="font-semibold text-sm text-[#8A5A00] mb-1 flex items-center gap-1"><span class="text-[#D99A00]">❀</span> Amarte cada día más</h4>
+                  <p class="text-xs text-[#4A3600] italic font-serif">Descubrir nuevas formas de hacerte feliz y recordarte siempre lo valiosa que eres.</p>
                 </div>
               </div>
             </div>
@@ -333,43 +343,43 @@
 
       <!-- Flower Garden Vase Widget -->
       <div class="w-full flex flex-col items-center">
-        <div class="bg-white border border-pink-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] w-full flex flex-col items-center relative overflow-hidden">
+        <div class="bg-white border border-amber-100 p-6 rounded-3xl shadow-[0_10px_30px_rgba(255,133,161,0.15)] w-full flex flex-col items-center relative overflow-hidden">
           <div class="text-center mb-6">
-            <span class="text-xs uppercase tracking-widest font-sans font-bold text-[#C9184A] flex items-center justify-center gap-1.5">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#C9184A] animate-pulse"></i> Flores Especiales
+            <span class="text-xs uppercase tracking-widest font-sans font-bold text-[#8A5A00] flex items-center justify-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#8A5A00] animate-pulse"></i> Flores Especiales
             </span>
-            <h2 class="font-display text-[#590D22] text-2xl font-bold mt-1">Un Jarrón de Flores para Carolina</h2>
-            <p class="text-xs text-[#590D22]/80 mt-1 italic">Elige hermosas flores para diseñar un ramo personalizado. Cada flor lleva un sentimiento.</p>
+            <h2 class="font-display text-[#4A3600] text-2xl font-bold mt-1">Un Jarrón de Flores para Carolina</h2>
+            <p class="text-xs text-[#4A3600]/80 mt-1 italic">Elige hermosas flores para diseñar un ramo personalizado. Cada flor lleva un sentimiento.</p>
           </div>
 
-          <div class="w-full min-h-[52px] bg-[#FFF0F3]/40 border border-[#FFE5EC] rounded-2xl p-3 flex items-center justify-center text-center shadow-inner mb-6">
-            <p id="garden-quote" class="font-script text-xl md:text-2xl text-[#590D22] leading-relaxed transition-all">
+          <div class="w-full min-h-[52px] bg-[#FFF9DB]/40 border border-[#FFF0A8] rounded-2xl p-3 flex items-center justify-center text-center shadow-inner mb-6">
+            <p id="garden-quote" class="font-script text-xl md:text-2xl text-[#4A3600] leading-relaxed transition-all">
               🌸 Haz clic en una flor para agregarla a tu jarrón de amor.
             </p>
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 w-full mb-6">
-            <button onclick="addFlower('rose')" class="bg-white hover:bg-[#FFE5EC]/50 border border-pink-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
-              <span class="text-2xl group-hover:animate-bounce">🌹</span><span class="text-xs font-serif font-semibold text-[#C9184A]">Rosa Rosa</span>
+            <button onclick="addFlower('rose')" class="bg-white hover:bg-[#FFF0A8]/50 border border-amber-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
+              <span class="text-2xl group-hover:animate-bounce">🌹</span><span class="text-xs font-serif font-semibold text-[#8A5A00]">Rosa Rosa</span>
             </button>
-            <button onclick="addFlower('tulip')" class="bg-white hover:bg-[#FFE5EC]/50 border border-pink-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
-              <span class="text-2xl group-hover:animate-bounce">🌷</span><span class="text-xs font-serif font-semibold text-[#C9184A]">Tulipán Rojo</span>
+            <button onclick="addFlower('tulip')" class="bg-white hover:bg-[#FFF0A8]/50 border border-amber-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
+              <span class="text-2xl group-hover:animate-bounce">🌷</span><span class="text-xs font-serif font-semibold text-[#8A5A00]">Tulipán Rojo</span>
             </button>
-            <button onclick="addFlower('daisy')" class="bg-white hover:bg-[#FFE5EC]/50 border border-pink-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
-              <span class="text-2xl group-hover:animate-bounce">🌼</span><span class="text-xs font-serif font-semibold text-[#C9184A]">Margarita</span>
+            <button onclick="addFlower('daisy')" class="bg-white hover:bg-[#FFF0A8]/50 border border-amber-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
+              <span class="text-2xl group-hover:animate-bounce">🌼</span><span class="text-xs font-serif font-semibold text-[#8A5A00]">Margarita</span>
             </button>
-            <button onclick="addFlower('lavender')" class="bg-white hover:bg-[#FFE5EC]/50 border border-pink-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
-              <span class="text-2xl group-hover:animate-bounce">🪻</span><span class="text-xs font-serif font-semibold text-[#C9184A]">Lavanda</span>
+            <button onclick="addFlower('lavender')" class="bg-white hover:bg-[#FFF0A8]/50 border border-amber-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
+              <span class="text-2xl group-hover:animate-bounce">🪻</span><span class="text-xs font-serif font-semibold text-[#8A5A00]">Lavanda</span>
             </button>
-            <button onclick="addFlower('orchid')" class="bg-white hover:bg-[#FFE5EC]/50 border border-pink-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
-              <span class="text-2xl group-hover:animate-bounce">🌸</span><span class="text-xs font-serif font-semibold text-[#C9184A]">Orquídea</span>
+            <button onclick="addFlower('orchid')" class="bg-white hover:bg-[#FFF0A8]/50 border border-amber-100 rounded-2xl p-2 flex flex-col items-center gap-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-95 group cursor-pointer">
+              <span class="text-2xl group-hover:animate-bounce">🌸</span><span class="text-xs font-serif font-semibold text-[#8A5A00]">Orquídea</span>
             </button>
           </div>
 
           <!-- Vase Stage Area -->
-          <div class="relative w-full h-[320px] bg-gradient-to-b from-[#FFF0F3]/20 to-[#FFE5EC]/40 rounded-2xl border border-pink-100 overflow-hidden flex flex-col items-center justify-end shadow-inner p-4">
+          <div class="relative w-full h-[320px] bg-gradient-to-b from-[#FFF9DB]/20 to-[#FFF0A8]/40 rounded-2xl border border-amber-100 overflow-hidden flex flex-col items-center justify-end shadow-inner p-4">
             <div class="absolute inset-0 pointer-events-none opacity-20">
-              <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-pink-300 rounded-full blur-3xl animate-pulse"></div>
+              <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-amber-300 rounded-full blur-3xl animate-pulse"></div>
             </div>
 
             <!-- Injected Flowers -->
@@ -377,19 +387,19 @@
 
             <!-- Vase Base -->
             <div class="relative w-28 h-28 z-20 flex flex-col items-center justify-end">
-              <div class="absolute bottom-2 inset-x-3 h-16 bg-[#FFB3C1]/30 rounded-b-xl border-t border-pink-300/40 backdrop-blur-xs flex items-center justify-center">
-                <i data-lucide="heart" class="w-5 h-5 text-[#FF758F]/50 fill-[#FF758F]/20 animate-pulse"></i>
+              <div class="absolute bottom-2 inset-x-3 h-16 bg-[#F8D66D]/30 rounded-b-xl border-t border-amber-300/40 backdrop-blur-xs flex items-center justify-center">
+                <i data-lucide="heart" class="w-5 h-5 text-[#D99A00]/50 fill-[#D99A00]/20 animate-pulse"></i>
               </div>
               <div class="absolute inset-0 bg-white/30 border-2 border-white/60 rounded-3xl shadow-lg backdrop-blur-md flex items-center justify-center">
                 <div class="absolute top-4 left-3 w-2 h-16 bg-white/40 rounded-full rotate-6"></div>
-                <div class="bg-[#FFE5EC] border border-[#FF85A1] rounded-full p-1.5"><i data-lucide="heart" class="w-4 h-4 text-[#C9184A] fill-[#FF85A1]"></i></div>
+                <div class="bg-[#FFF0A8] border border-[#E9B949] rounded-full p-1.5"><i data-lucide="heart" class="w-4 h-4 text-[#8A5A00] fill-[#E9B949]"></i></div>
               </div>
               <div class="absolute -top-3 w-16 h-4 bg-white/40 border-2 border-white/60 rounded-full z-30"></div>
             </div>
-            <div class="w-48 h-2 bg-gradient-to-r from-pink-200/40 via-pink-300/50 to-pink-200/40 rounded-full shadow z-0"></div>
+            <div class="w-48 h-2 bg-gradient-to-r from-amber-200/40 via-amber-300/50 to-amber-200/40 rounded-full shadow z-0"></div>
           </div>
 
-          <button id="reset-vase-btn" onclick="clearBouquet()" class="hidden mt-4 flex items-center gap-1 px-4 py-1.5 bg-[#FFE5EC] hover:bg-[#FFD1DC] text-[#C9184A] rounded-full text-xs font-serif font-semibold border border-pink-200 shadow-sm cursor-pointer">
+          <button id="reset-vase-btn" onclick="clearBouquet()" class="hidden mt-4 flex items-center gap-1 px-4 py-1.5 bg-[#FFF0A8] hover:bg-[#FFE477] text-[#8A5A00] rounded-full text-xs font-serif font-semibold border border-amber-200 shadow-sm cursor-pointer">
             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reiniciar Jarrón
           </button>
         </div>
@@ -398,20 +408,20 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full max-w-2xl text-center mt-12 pb-6 border-t border-pink-100 pt-6 relative z-10">
-      <p class="text-xs text-pink-400 font-serif italic flex items-center justify-center gap-1">
-        Hecho con todo el amor de mi corazón para mi hermosa Carolina <i data-lucide="heart" class="w-3 h-3 text-rose-500 fill-rose-400"></i>
+    <footer class="w-full max-w-2xl text-center mt-12 pb-6 border-t border-amber-100 pt-6 relative z-10">
+      <p class="text-xs text-amber-400 font-serif italic flex items-center justify-center gap-1">
+        Hecho con todo el amor de mi corazón para mi hermosa Carolina <i data-lucide="heart" class="w-3 h-3 text-yellow-500 fill-yellow-400"></i>
       </p>
-      <p class="text-[10px] text-pink-300 font-sans tracking-widest uppercase mt-1">Por siempre tuyo • 2026</p>
+      <p class="text-[10px] text-amber-300 font-sans tracking-widest uppercase mt-1">Por siempre tuyo • 2026</p>
     </footer>
 
     <!-- Floating Background Music Player -->
     <button
       id="music-toggle"
       onclick="toggleMusic()"
-      class="fixed bottom-6 right-6 z-40 bg-white hover:bg-pink-50 text-[#C9184A] border-2 border-pink-200 hover:border-pink-300 rounded-full p-3.5 shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 font-serif text-sm font-semibold cursor-pointer"
+      class="fixed bottom-6 right-6 z-40 bg-white hover:bg-amber-50 text-[#8A5A00] border-2 border-amber-200 hover:border-amber-300 rounded-full p-3.5 shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 font-serif text-sm font-semibold cursor-pointer"
     >
-      <i id="music-icon" data-lucide="music" class="w-5 h-5 text-[#C9184A]"></i>
+      <i id="music-icon" data-lucide="music" class="w-5 h-5 text-[#8A5A00]"></i>
       <span id="music-text">Música de Fondo 🔇</span>
     </button>
 
@@ -482,10 +492,10 @@
           const btn = document.getElementById(`tab-btn-${t}`);
           const content = document.getElementById(`tab-content-${t}`);
           if (t === tabName) {
-            btn.className = "px-3 py-1.5 rounded-full text-xs font-serif bg-[#C9184A] text-white font-bold shadow-sm transition-all";
+            btn.className = "px-3 py-1.5 rounded-full text-xs font-serif bg-[#8A5A00] text-white font-bold shadow-sm transition-all";
             content.classList.remove('hidden');
           } else {
-            btn.className = "px-3 py-1.5 rounded-full text-xs font-serif text-[#C9184A] hover:bg-[#FFE5EC] transition-all";
+            btn.className = "px-3 py-1.5 rounded-full text-xs font-serif text-[#8A5A00] hover:bg-[#FFF0A8] transition-all";
             content.classList.add('hidden');
           }
         });
@@ -571,17 +581,17 @@
             const isOpen = !content.classList.contains('hidden');
             if (isOpen) {
               content.classList.add('hidden');
-              heart.classList.remove('text-[#C9184A]', 'fill-[#C9184A]', 'scale-125');
-              heart.classList.add('text-pink-300');
+              heart.classList.remove('text-[#8A5A00]', 'fill-[#8A5A00]', 'scale-125');
+              heart.classList.add('text-amber-300');
             } else {
               content.classList.remove('hidden');
-              heart.classList.remove('text-pink-300');
-              heart.classList.add('text-[#C9184A]', 'fill-[#C9184A]', 'scale-125');
+              heart.classList.remove('text-amber-300');
+              heart.classList.add('text-[#8A5A00]', 'fill-[#8A5A00]', 'scale-125');
             }
           } else {
             content.classList.add('hidden');
-            heart.classList.remove('text-[#C9184A]', 'fill-[#C9184A]', 'scale-125');
-            heart.classList.add('text-pink-300');
+            heart.classList.remove('text-[#8A5A00]', 'fill-[#8A5A00]', 'scale-125');
+            heart.classList.add('text-amber-300');
           }
         }
       }
@@ -590,7 +600,7 @@
       const FLOWER_TYPES = [
         {
           type: 'rose',
-          color: '#fb7185',
+          color: '#fbbf24',
           quote: '🌹 "La rosa es la reina de las flores, pero tú eres la reina de mi corazón."',
           svg: (c, fId) => `<svg viewBox="0 0 100 200" class="w-full h-full">
             <defs>
@@ -627,24 +637,24 @@
               <path d="M 0,3 C -10,3 -15,-5 0,-10 C 15,-5 10,3 0,3 Z" fill="#3f6212"/>
             </g>
             <g transform="translate(50, 52)">
-              <path d="M -22,10 C -38,-15 -15,-35 0,-15 C -8,5 -18,15 -22,10 Z" fill="#e11d48" opacity="0.95"/>
-              <path d="M 22,10 C 38,-15 15,-35 0,-15 C 8,5 18,15 22,10 Z" fill="#e11d48" opacity="0.95"/>
-              <path d="M -25,-5 C -35,-35 35,-35 25,-5 C 18,-15 -18,-15 -25,-5 Z" fill="#be123c"/>
+              <path d="M -22,10 C -38,-15 -15,-35 0,-15 C -8,5 -18,15 -22,10 Z" fill="#d4a017" opacity="0.95"/>
+              <path d="M 22,10 C 38,-15 15,-35 0,-15 C 8,5 18,15 22,10 Z" fill="#d4a017" opacity="0.95"/>
+              <path d="M -25,-5 C -35,-35 35,-35 25,-5 C 18,-15 -18,-15 -25,-5 Z" fill="#8a5a00"/>
               <path d="M -18,-15 C -25,-42 25,-42 18,-15 C 12,-25 -12,-25 -18,-15 Z" fill="#9f1239"/>
               <path d="M -18,12 C -28,-10 0,-25 0,0 C 0,-25 28,-10 18,12 C 10,5 -10,5 -18,12 Z" fill="url(#${fId}-petal-grad)"/>
-              <path d="M -12,2 C -18,-15 -2,-22 0,-5 C 2,-22 18,-15 12,2 C 8,-1 -8,-1 -12,2 Z" fill="#f43f5e"/>
-              <path d="M -8,0 C -12,-10 -2,-16 0,-3 C 2,-16 12,-10 8,0 C 5,-1 -5,-1 -8,0 Z" fill="#e11d48"/>
-              <ellipse cx="0" cy="-3" rx="4" ry="3" fill="#be123c"/>
+              <path d="M -12,2 C -18,-15 -2,-22 0,-5 C 2,-22 18,-15 12,2 C 8,-1 -8,-1 -12,2 Z" fill="#eab308"/>
+              <path d="M -8,0 C -12,-10 -2,-16 0,-3 C 2,-16 12,-10 8,0 C 5,-1 -5,-1 -8,0 Z" fill="#d4a017"/>
+              <ellipse cx="0" cy="-3" rx="4" ry="3" fill="#8a5a00"/>
             </g>
           </svg>`
         },
         {
           type: 'tulip',
-          color: '#ef4444',
+          color: '#d4a017',
           quote: '🌷 "Como los tulipanes buscando el sol, mi vida entera busca tu calor."',
           svg: (c, fId) => `<svg viewBox="0 0 100 200" class="w-full h-full">
             <defs>
-              <linearGradient id="${fId}-rose-stem-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id="${fId}-yellow-stem-grad" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#4d7c0f"/>
                 <stop offset="50%" stop-color="#84cc16"/>
                 <stop offset="100%" stop-color="#4d7c0f"/>
@@ -659,7 +669,7 @@
                 <stop offset="100%" stop-color="#a3e635" />
               </linearGradient>
             </defs>
-            <path d="M 50,200 Q 53,130 50,70" fill="none" stroke="url(#${fId}-rose-stem-grad)" stroke-width="5" stroke-linecap="round"/>
+            <path d="M 50,200 Q 53,130 50,70" fill="none" stroke="url(#${fId}-yellow-stem-grad)" stroke-width="5" stroke-linecap="round"/>
             <path d="M 50,180 C 25,160 20,110 46,100 C 38,125 42,150 50,165" fill="url(#${fId}-leaf-grad)" stroke="#4d7c0f" stroke-width="1"/>
             <path d="M 50,150 C 70,135 75,95 52,85 C 60,110 58,135 50,145" fill="url(#${fId}-leaf-grad)" stroke="#4d7c0f" stroke-width="1"/>
             <g transform="translate(50, 68)">
@@ -786,7 +796,7 @@
         },
         {
           type: 'orchid',
-          color: '#ec4899',
+          color: '#facc15',
           quote: '🌸 "Eres única, delicada y deslumbrante como la más preciosa de las orquídeas."',
           svg: (c, fId) => `<svg viewBox="0 0 100 200" class="w-full h-full">
             <defs>
@@ -797,11 +807,11 @@
               <linearGradient id="${fId}-orchid-petal" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#fdf2f8" />
                 <stop offset="50%" stop-color="${c}" />
-                <stop offset="100%" stop-color="#9d174d" />
+                <stop offset="100%" stop-color="#8a5a00" />
               </linearGradient>
               <radialGradient id="${fId}-orchid-lip" cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stop-color="#fde047" />
-                <stop offset="40%" stop-color="#e11d48" />
+                <stop offset="40%" stop-color="#d4a017" />
                 <stop offset="100%" stop-color="#4c0519" />
               </radialGradient>
             </defs>
@@ -810,18 +820,18 @@
             <path d="M 48,185 C 70,180 75,195 52,200 Z" fill="#14532d"/>
             <g transform="translate(39, 110) rotate(-40)">
               <path d="M 0,0 C -8,-12 8,-12 0,0 Z" fill="#a21caf" opacity="0.8"/>
-              <path d="M -1,-1 C -4,-8 4,-8 1,-1 Z" fill="#f472b6"/>
+              <path d="M -1,-1 C -4,-8 4,-8 1,-1 Z" fill="#fde047"/>
               <path d="M 0,0 L -5,8" stroke="url(#${fId}-orchid-stem)" stroke-width="2"/>
             </g>
             <g transform="translate(52, 65)">
-              <path d="M 0,-5 C -12,-35 12,-35 0,-5 Z" fill="url(#${fId}-orchid-petal)" stroke="#f472b6" stroke-width="0.5"/>
-              <path d="M -3,-2 C -24,18 -32,-2 -3,-2 Z" fill="url(#${fId}-orchid-petal)" stroke="#f472b6" stroke-width="0.5" transform="rotate(30)"/>
-              <path d="M 3,-2 C 24,18 32,-2 3,-2 Z" fill="url(#${fId}-orchid-petal)" stroke="#f472b6" stroke-width="0.5" transform="rotate(-30)"/>
-              <path d="M -2,-4 C -35,-24 -32,10 -2,-4 Z" fill="url(#${fId}-orchid-petal)" stroke="#db2777" stroke-width="0.5"/>
-              <path d="M 2,-4 C 35,-24 32,10 2,-4 Z" fill="url(#${fId}-orchid-petal)" stroke="#db2777" stroke-width="0.5"/>
+              <path d="M 0,-5 C -12,-35 12,-35 0,-5 Z" fill="url(#${fId}-orchid-petal)" stroke="#fde047" stroke-width="0.5"/>
+              <path d="M -3,-2 C -24,18 -32,-2 -3,-2 Z" fill="url(#${fId}-orchid-petal)" stroke="#fde047" stroke-width="0.5" transform="rotate(30)"/>
+              <path d="M 3,-2 C 24,18 32,-2 3,-2 Z" fill="url(#${fId}-orchid-petal)" stroke="#fde047" stroke-width="0.5" transform="rotate(-30)"/>
+              <path d="M -2,-4 C -35,-24 -32,10 -2,-4 Z" fill="url(#${fId}-orchid-petal)" stroke="#d4a017" stroke-width="0.5"/>
+              <path d="M 2,-4 C 35,-24 32,10 2,-4 Z" fill="url(#${fId}-orchid-petal)" stroke="#d4a017" stroke-width="0.5"/>
               <path d="M -12,4 C -18,24 0,35 0,14 C 0,35 18,24 12,4 C 6,-2 -6,-2 -12,4 Z" fill="url(#${fId}-orchid-lip)"/>
               <path d="M -6,14 C -10,26 0,30 0,18 C 0,30 10,26 6,14 Z" fill="#9f1239"/>
-              <path d="M -3,0 C -5,-8 5,-8 3,0 Z" fill="#ffffff" stroke="#f472b6" stroke-width="0.5"/>
+              <path d="M -3,0 C -5,-8 5,-8 3,0 Z" fill="#ffffff" stroke="#fde047" stroke-width="0.5"/>
               <circle cx="0" cy="-4" r="1.5" fill="#fde047"/>
               <circle cx="-10" cy="2" r="0.6" fill="#9f1239"/>
               <circle cx="-6" cy="6" r="0.8" fill="#9f1239"/>
@@ -900,7 +910,7 @@
       }
 
       // Floating Hearts Physics
-      const HEART_COLORS = ['#f43f5e', '#ec4899', '#db2777', '#f472b6', '#fda4af', '#f02e65', '#ff85a2'];
+      const HEART_COLORS = ['#eab308', '#facc15', '#d4a017', '#fde047', '#f8d66d', '#d99a00', '#e9b949'];
       let heartsList = [];
 
       function spawnBurst(cx, cy, count = 8) {
@@ -1140,12 +1150,12 @@
         if (musicPlaying) {
           startBackgroundMusic();
           textSpan.textContent = "Música Activa 🔊";
-          toggleBtn.classList.add('bg-pink-100', 'border-pink-300');
+          toggleBtn.classList.add('bg-amber-100', 'border-amber-300');
           icon.classList.add('animate-pulse');
         } else {
           stopBackgroundMusic();
           textSpan.textContent = "Música de Fondo 🔇";
-          toggleBtn.classList.remove('bg-pink-100', 'border-pink-300');
+          toggleBtn.classList.remove('bg-amber-100', 'border-amber-300');
           icon.classList.remove('animate-pulse');
         }
         playFlowerPop();

@@ -9,7 +9,7 @@
 
 /* Custom soft romantic styles */
 body {
-  background-color: #FFF0F3;
+  background-color: #FFF9DB;
   color: #4A0E0E;
   font-family: var(--font-sans);
   overflow-x: hidden;
@@ -28,12 +28,12 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #FFF0F3;
+  background: #FFF9DB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #FF85A1;
+  background: #E9B949;
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C9184A;
+  background: #8A5A00;
 }
